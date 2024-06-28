@@ -202,6 +202,7 @@
       "media.navigator.mediadatadecoder_vpx_enabled" = true;
       "network.IDN_show_punycode" = true;
       "dom.security.https_only_mode" = true;
+      "widget.wayland.opaque-region.enabled" = false;
     };
     preferencesStatus = "default";
     autoConfig = ''
