@@ -2,25 +2,53 @@
 # your system. Help is available in the configuration.nix(5) man page, on
 # https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
 
-{ config, lib, pkgs, inputs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  inputs,
+  ...
+}:
 
 {
-  imports = [ # Include the results of the hardware scan.
+  imports = [
+    # Include the results of the hardware scan.
     ./hardware-configuration.nix
   ];
 
-  # Use the systemd-boot EFI boot loader.
-  boot.loader.systemd-boot.enable = true;
+  # secure boot
+
+  # Lanzaboote currently replaces the systemd-boot module.
+  # This setting is usually set to true in configuration.nix
+  # generated at installation time. So we force it to false
+  # for now.
+  boot.loader.systemd-boot.enable = false;
+
+  boot.lanzaboote = {
+    enable = true;
+    pkiBundle = "/etc/secureboot";
+  };
+
   boot.loader.efi.canTouchEfiVariables = true;
-  nix.settings.substituters =
-    [ "https://mirror.sjtu.edu.cn/nix-channels/store" ];
+
+  nix.settings.substituters = [ "https://mirror.sjtu.edu.cn/nix-channels/store" ];
   programs.sway.enable = true;
-  programs.sway.extraPackages = with pkgs; [ foot wmenu swaylock swayidle i3status brightnessctl wl-clipboard grim gnome.adwaita-icon-theme gnome.gnome-themes-extra ];
+  programs.sway.extraPackages = with pkgs; [
+    foot
+    wmenu
+    swaylock
+    swayidle
+    i3status
+    brightnessctl
+    wl-clipboard
+    grim
+    gnome.adwaita-icon-theme
+    gnome.gnome-themes-extra
+  ];
   # networking.hostName = "nixos"; # Define your hostname.
   # Pick only one of the below networking options.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
-  networking.networkmanager.enable =
-    true; # Easiest to use and most distros use this by default.
+  networking.networkmanager.enable = true; # Easiest to use and most distros use this by default.
   nix.registry.nixpkgs.flake = inputs.nixpkgs;
 
   # Set your time zone.
@@ -36,7 +64,9 @@
     };
     tlp = {
       enable = true;
-      settings = { STOP_CHARGE_THRESH_BAT0 = 1; };
+      settings = {
+        STOP_CHARGE_THRESH_BAT0 = 1;
+      };
     };
     logind = {
       extraConfig = ''
@@ -71,15 +101,28 @@
   };
   fonts.fontconfig = {
     defaultFonts = {
-      sansSerif = [ "DejaVu Sans" "Noto Sans CJK SC" ];
-      monospace = [ "JuliaMono" "DejaVu Sans Mono" "Noto Sans Mono CJK SC" ];
-      serif = [ "DejaVu Serif" "Noto Sans CJK SC" ];
+      sansSerif = [
+        "DejaVu Sans"
+        "Noto Sans CJK SC"
+      ];
+      monospace = [
+        "JuliaMono"
+        "DejaVu Sans Mono"
+        "Noto Sans Mono CJK SC"
+      ];
+      serif = [
+        "DejaVu Serif"
+        "Noto Sans CJK SC"
+      ];
     };
   };
 
   zramSwap.enable = true;
 
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  nix.settings.experimental-features = [
+    "nix-command"
+    "flakes"
+  ];
 
   boot.initrd.systemd.enable = true;
 
@@ -89,14 +132,22 @@
     enableSSHSupport = true;
     pinentryPackage = pkgs.pinentry-qt;
   };
-  networking = { firewall.enable = true; };
+  networking = {
+    firewall.enable = true;
+  };
   users.mutableUsers = false;
   users.users = {
     yc = {
-      initialHashedPassword =
-        "$6$UxT9KYGGV6ik$BhH3Q.2F8x1llZQLUS1Gm4AxU7bmgZUP7pNX6Qt3qrdXUy7ZYByl5RVyKKMp/DuHZgk.RiiEXK8YVH.b2nuOO/";
+      initialHashedPassword = "$6$UxT9KYGGV6ik$BhH3Q.2F8x1llZQLUS1Gm4AxU7bmgZUP7pNX6Qt3qrdXUy7ZYByl5RVyKKMp/DuHZgk.RiiEXK8YVH.b2nuOO/";
       description = "Yuchen Guo";
-      packages = with pkgs; [ xournalpp mpv zathura pulseaudio proxychains-ng (pkgs.pass.withExtensions (exts: [ exts.pass-otp ])) ];
+      packages = with pkgs; [
+        xournalpp
+        mpv
+        zathura
+        pulseaudio
+        proxychains-ng
+        (pkgs.pass.withExtensions (exts: [ exts.pass-otp ]))
+      ];
       extraGroups = [
         # use doas
         "wheel"
@@ -106,7 +157,12 @@
   };
   fonts.packages = builtins.attrValues {
     inherit (pkgs)
-      dejavu_fonts noto-fonts-cjk-sans gyre-fonts stix-two julia-mono;
+      dejavu_fonts
+      noto-fonts-cjk-sans
+      gyre-fonts
+      stix-two
+      julia-mono
+      ;
   };
   xdg.portal = {
     enable = true;
@@ -153,9 +209,13 @@
       DisablePocket = true;
       DisableTelemetry = true;
       DisplayMenuBar = "never";
-      DNSOverHTTPS = { Enabled = false; };
+      DNSOverHTTPS = {
+        Enabled = false;
+      };
       DontCheckDefaultBrowser = true;
-      EncryptedMediaExtensions = { Enabled = false; };
+      EncryptedMediaExtensions = {
+        Enabled = false;
+      };
       ExtensionUpdate = false;
       FirefoxHome = {
         SponsoredTopSites = false;
@@ -163,7 +223,9 @@
         SponsoredPocket = false;
       };
       HardwareAcceleration = true;
-      Homepage = { StartPage = "none"; };
+      Homepage = {
+        StartPage = "none";
+      };
       NetworkPrediction = false;
       NewTabPage = false;
       NoDefaultBookmarks = true;
@@ -171,13 +233,23 @@
       OverrideFirstRunPage = "";
       OverridePostUpdatePage = "";
       PasswordManagerEnabled = false;
-      PDFjs = { Enabled = false; };
-      Permissions = {
-        Location = { BlockNewRequests = true; };
-        Notifications = { BlockNewRequests = true; };
+      PDFjs = {
+        Enabled = false;
       };
-      PictureInPicture = { Enabled = false; };
-      PopupBlocking = { Default = false; };
+      Permissions = {
+        Location = {
+          BlockNewRequests = true;
+        };
+        Notifications = {
+          BlockNewRequests = true;
+        };
+      };
+      PictureInPicture = {
+        Enabled = false;
+      };
+      PopupBlocking = {
+        Default = false;
+      };
       PromptForDownloadLocation = true;
       SearchSuggestEnabled = false;
       ShowHomeButton = true;
@@ -188,7 +260,6 @@
         MoreFromMozilla = false;
         SkipOnboarding = true;
       };
-
     };
     preferences = {
       "browser.aboutConfig.showWarning" = false;
@@ -269,9 +340,11 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-     mg
-     powertop
-   ];
+    mg
+    # create secure boot keys
+    sbctl
+    powertop
+  ];
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
@@ -315,5 +388,4 @@
   #
   # For more information, see `man configuration.nix` or https://nixos.org/manual/nixos/stable/options#opt-system.stateVersion .
   system.stateVersion = "24.05"; # Did you read the comment?
-
 }
