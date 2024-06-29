@@ -8,7 +8,7 @@
   outputs = { self, nixpkgs, nixos-hardware }@inputs: {
     formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.nixfmt;
     nixosConfigurations.yinzhou = nixpkgs.lib.nixosSystem {
-      # ...
+      specialArgs = { inherit inputs; };
       modules = [
         ./configuration.nix
 	./hardware-configuration.nix
