@@ -6,6 +6,7 @@
   inputs.nixos-hardware.url = "github:NixOS/nixos-hardware/3980e7816c99d9e4da7a7b762e5b294055b73b2f";
 
   outputs = { self, nixpkgs, nixos-hardware }: {
+    formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.nixfmt;
     nixosConfigurations.yinzhou = nixpkgs.lib.nixosSystem {
       # ...
       modules = [
