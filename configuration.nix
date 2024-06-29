@@ -95,7 +95,7 @@
       initialHashedPassword =
         "$6$UxT9KYGGV6ik$BhH3Q.2F8x1llZQLUS1Gm4AxU7bmgZUP7pNX6Qt3qrdXUy7ZYByl5RVyKKMp/DuHZgk.RiiEXK8YVH.b2nuOO/";
       description = "Yuchen Guo";
-      packages = with pkgs; [ xournalpp mpv zathura pulseaudio (pkgs.pass.withExtensions (exts: [ exts.pass-otp ])) ];
+      packages = with pkgs; [ xournalpp mpv zathura pulseaudio proxychains-ng (pkgs.pass.withExtensions (exts: [ exts.pass-otp ])) ];
       extraGroups = [
         # use doas
         "wheel"
