@@ -66,6 +66,13 @@
       enable = true;
       settings = {
         STOP_CHARGE_THRESH_BAT0 = 1;
+        CPU_ENERGY_PERF_POLICY_ON_BAT = "power";
+        PLATFORM_PROFILE_ON_BAT = "low-power";
+        CPU_BOOST_ON_BAT = 0;
+        CPU_HWP_DYN_BOOST_ON_BAT = 0;
+        # treat everything as battery
+        TLP_DEFAULT_MODE = "BAT";
+        TLP_PERSISTENT_DEFAULT = 1;
       };
     };
     logind = {
