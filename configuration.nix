@@ -103,7 +103,6 @@
       isNormalUser = true;
     };
   };
-  environment
   fonts.packages = builtins.attrValues {
     inherit (pkgs)
       dejavu_fonts noto-fonts-cjk-sans gyre-fonts stix-two julia-mono;
