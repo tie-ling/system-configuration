@@ -95,6 +95,7 @@
       initialHashedPassword =
         "$6$UxT9KYGGV6ik$BhH3Q.2F8x1llZQLUS1Gm4AxU7bmgZUP7pNX6Qt3qrdXUy7ZYByl5RVyKKMp/DuHZgk.RiiEXK8YVH.b2nuOO/";
       description = "Yuchen Guo";
+      packages = with pkgs; [ xournalpp mpv zathura pulseaudio ];
       extraGroups = [
         # use doas
         "wheel"
@@ -102,6 +103,7 @@
       isNormalUser = true;
     };
   };
+  environment
   fonts.packages = builtins.attrValues {
     inherit (pkgs)
       dejavu_fonts noto-fonts-cjk-sans gyre-fonts stix-two julia-mono;
@@ -266,10 +268,10 @@
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
-  # environment.systemPackages = with pkgs; [
-  #   vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
-  #   wget
-  # ];
+  environment.systemPackages = with pkgs; [
+     mg
+     powertop
+   ];
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
