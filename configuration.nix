@@ -16,6 +16,8 @@
     ./hardware-configuration.nix
   ];
 
+  powerManagement.powertop.enable = true;
+
   # secure boot
 
   # Lanzaboote currently replaces the systemd-boot module.
