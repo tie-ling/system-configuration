@@ -67,6 +67,7 @@
     tlp = {
       enable = true;
       settings = {
+        DEVICES_TO_DISABLE_ON_BAT_NOT_IN_USE = "bluetooth wwan";
         STOP_CHARGE_THRESH_BAT0 = 1;
         CPU_ENERGY_PERF_POLICY_ON_BAT = "power";
         PLATFORM_PROFILE_ON_BAT = "low-power";
