@@ -153,6 +153,7 @@
       packages = with pkgs; [
         xournalpp
         mpv
+	yt-dlp
         zathura
         pulseaudio
         proxychains-ng
