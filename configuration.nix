@@ -157,6 +157,7 @@
 	yt-dlp
         zathura
         pulseaudio
+	gpxsee
         proxychains-ng
         (pkgs.pass.withExtensions (exts: [ exts.pass-otp ]))
       ];
