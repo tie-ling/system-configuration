@@ -37,7 +37,11 @@
   services.logrotate.checkConfig = false;
   environment.memoryAllocator.provider = "libc";
   security.lockKernelModules = false;
+
+  # must allow simulaneous multithreading for sleep/suspend to work on amd
   security.allowSimultaneousMultithreading = true;
+
+
   security.unprivilegedUsernsClone = true;
 
   nix.settings.substituters = [ "https://mirror.sjtu.edu.cn/nix-channels/store" ];
