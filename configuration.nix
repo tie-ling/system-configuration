@@ -34,6 +34,12 @@
 
   boot.loader.efi.canTouchEfiVariables = true;
 
+  services.logrotate.checkConfig = false;
+  environment.memoryAllocator.provider = "libc";
+  security.lockKernelModules = false;
+  security.allowSimultaneousMultithreading = true;
+  security.unprivilegedUsernsClone = true;
+
   nix.settings.substituters = [ "https://mirror.sjtu.edu.cn/nix-channels/store" ];
   programs.sway.enable = true;
   programs.sway.extraPackages = with pkgs; [
@@ -154,10 +160,10 @@
       packages = with pkgs; [
         xournalpp
         mpv
-	yt-dlp
+        yt-dlp
         zathura
         pulseaudio
-	gpxsee
+        gpxsee
         proxychains-ng
         (pkgs.pass.withExtensions (exts: [ exts.pass-otp ]))
       ];
