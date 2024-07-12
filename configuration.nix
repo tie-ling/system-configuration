@@ -170,6 +170,7 @@
         pulseaudio
         gpxsee
         proxychains-ng
+	autossh
         (pkgs.pass.withExtensions (exts: [ exts.pass-otp ]))
       ];
       extraGroups = [
