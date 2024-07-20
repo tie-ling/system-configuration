@@ -46,6 +46,9 @@
     gnome.adwaita-icon-theme
     gnome.gnome-themes-extra
   ];
+  programs.sway.extraSessionCommands = ''
+    export ELECTRON_OZONE_PLATFORM_HINT=wayland
+  '';
   networking.hostName = "yinzhou"; # Define your hostname.
   # Pick only one of the below networking options.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
