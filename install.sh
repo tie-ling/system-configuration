@@ -1,3 +1,5 @@
+# nixos-rebuild --option substituters "https://mirrors.tuna.tsinghua.edu.cn/nix-channels/store"
+# https://mirror.sjtu.edu.cn/nix-channels/store
 printf "put_my_text_password_here" > /root/diskpw
 DISK=/dev/disk/by-id/ata-INTEL_SSDSCKKF256G8H_BTLA81651HQR256J
 
