@@ -162,7 +162,6 @@
         gpxsee
         proxychains-ng
         autossh
-	mc
         (pkgs.pass.withExtensions (exts: [ exts.pass-otp ]))
       ];
       extraGroups = [
