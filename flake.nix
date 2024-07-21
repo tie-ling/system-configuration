@@ -23,5 +23,15 @@
           nixos-hardware.nixosModules.lenovo-thinkpad-t14-amd-gen4
         ];
       };
+      nixosConfigurations.tieling = nixpkgs.lib.nixosSystem {
+        specialArgs = {
+          inherit inputs;
+        };
+        modules = [
+          ./server-configuration.nix
+          ./server-hardware-configuration.nix
+        ];
+      };
+
     };
 }

@@ -29,7 +29,6 @@
   # must allow simulaneous multithreading for sleep/suspend to work on amd
   security.allowSimultaneousMultithreading = true;
 
-
   security.unprivilegedUsernsClone = true;
 
   nix.settings.substituters = [ "https://mirror.sjtu.edu.cn/nix-channels/store" ];
@@ -162,7 +161,7 @@
         pulseaudio
         gpxsee
         proxychains-ng
-	autossh
+        autossh
         (pkgs.pass.withExtensions (exts: [ exts.pass-otp ]))
       ];
       extraGroups = [
