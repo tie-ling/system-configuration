@@ -212,16 +212,9 @@
           };
         };
       };
-      # captive portal enabled for connecting to free wifi
-      CaptivePortal = false;
-      Cookies = {
-        Behavior = "reject-tracker-and-partition-foreign";
-        BehaviorPrivateBrowsing = "reject-tracker-and-partition-foreign";
-      };
       DisableBuiltinPDFViewer = true;
       DisableFirefoxAccounts = true;
       DisableFirefoxStudies = true;
-      DisableFormHistory = true;
       DisablePocket = true;
       DisableTelemetry = true;
       DisplayMenuBar = "never";
@@ -237,9 +230,16 @@
         Install = [ ("file://" + ./umatrix-1.4.4.xpi) ];
       };
       FirefoxHome = {
+        Search = false;
+	TopSites = false;
+	Highlights = false;
+	Snippets = false;
         SponsoredTopSites = false;
         Pocket = false;
         SponsoredPocket = false;
+      };
+      FirefoxSuggest = {
+        SponsoredSuggestions = false;
       };
       HardwareAcceleration = true;
       Homepage = {
@@ -248,10 +248,8 @@
       NetworkPrediction = false;
       NewTabPage = false;
       NoDefaultBookmarks = true;
-      OfferToSaveLogins = false;
       OverrideFirstRunPage = "";
       OverridePostUpdatePage = "";
-      PasswordManagerEnabled = false;
       PDFjs = {
         Enabled = false;
       };
@@ -303,9 +301,7 @@
       pref("apz.gtk.touchpad_pinch.enabled", false);
       pref("webgl.disable-extensions", true);
       pref("webgl.disable-fail-if-major-performance-caveat", true);
-      pref("webgl.disabled", true);
       pref("webgl.min_capability_mode", true);
-      pref("javascript.enabled", true);
       pref("javascript.options.asmjs", false);
       pref("javascript.options.wasm", false);
       pref("javascript.options.ion", false);
