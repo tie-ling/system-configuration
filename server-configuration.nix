@@ -25,8 +25,6 @@
 
     boot.loader.efi.canTouchEfiVariables = true;
 
-    services.logrotate.checkConfig = false;
-    environment.memoryAllocator.provider = "libc";
     security.lockKernelModules = false;
 
     nix.settings.substituters = lib.mkBefore [ "https://mirror.sjtu.edu.cn/nix-channels/store" ];
@@ -123,8 +121,6 @@
 
     systemd.services.rtorrent.serviceConfig.LimitNOFILE = 10240;
 
-    security.lockKernelModules = false;
-
     services = {
       # workaround for hardened profile
       logrotate.checkConfig = false;
@@ -146,13 +142,13 @@
         server = {
           enable = true;
           createMountPoints = true;
-          extraNfsdConfig = ''
-            vers3=no
-            vers4=yes
-          '';
           exports = ''
             /rtorrent    192.168.1.0/24(ro,all_squash)
           '';
+        };
+        settings = {
+          nfsd.vers3 = false;
+          nfsd.vers4 = true;
         };
       };
       samba-wsdd.enable = false;
