@@ -233,6 +233,9 @@
         Enabled = false;
       };
       ExtensionUpdate = false;
+      Extensions = {
+        Install = [ ("file://" + ./umatrix-1.4.4.xpi) ];
+      };
       FirefoxHome = {
         SponsoredTopSites = false;
         Pocket = false;
