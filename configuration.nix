@@ -59,12 +59,6 @@
 
   boot.kernelPackages = pkgs.linuxPackages_latest;
   services = {
-    emacs = {
-      enable = true;
-      package = pkgs.emacs-nox;
-      defaultEditor = true;
-      install = true;
-    };
     tlp = {
       enable = true;
       settings = {
@@ -161,7 +155,7 @@
         pulseaudio
         gpxsee
         proxychains-ng
-        autossh
+        emacs-nox
         (pkgs.pass.withExtensions (exts: [ exts.pass-otp ]))
       ];
       extraGroups = [
@@ -231,9 +225,9 @@
       };
       FirefoxHome = {
         Search = false;
-	TopSites = false;
-	Highlights = false;
-	Snippets = false;
+        TopSites = false;
+        Highlights = false;
+        Snippets = false;
         SponsoredTopSites = false;
         Pocket = false;
         SponsoredPocket = false;
