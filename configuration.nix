@@ -302,7 +302,7 @@
       pref("webgl.disable-fail-if-major-performance-caveat", true);
       pref("webgl.disabled", true);
       pref("webgl.min_capability_mode", true);
-      pref("javascript.enabled", false);
+      pref("javascript.enabled", true);
       pref("javascript.options.asmjs", false);
       pref("javascript.options.wasm", false);
       pref("javascript.options.ion", false);
