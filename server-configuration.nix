@@ -104,7 +104,6 @@
         inherit (pkgs)
           smartmontools
           darkhttpd
-          pyrosimple
           emacs-nox
           ;
       };
@@ -184,8 +183,12 @@
           };
         };
       };
+      flood = {
+        enable = true;
+      };
       rtorrent = {
         enable = true;
+        package = pkgs.jesec-rtorrent;
         dataDir = "/rtorrent/dataDir";
         downloadDir = "/rtorrent/已下载";
         openFirewall = true;
