@@ -188,7 +188,6 @@
       };
       rtorrent = {
         enable = true;
-        package = pkgs.jesec-rtorrent;
         dataDir = "/rtorrent/dataDir";
         downloadDir = "/rtorrent/已下载";
         openFirewall = true;
