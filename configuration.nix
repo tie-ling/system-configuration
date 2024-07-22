@@ -153,6 +153,7 @@
         pulseaudio
         gpxsee
         proxychains-ng
+        autossh
         ((pkgs.emacsPackagesFor pkgs.emacs-nox).emacsWithPackages (
           epkgs:
           builtins.attrValues {
