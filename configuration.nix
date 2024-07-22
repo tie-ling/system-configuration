@@ -145,7 +145,6 @@
       initialHashedPassword = "$6$UxT9KYGGV6ik$BhH3Q.2F8x1llZQLUS1Gm4AxU7bmgZUP7pNX6Qt3qrdXUy7ZYByl5RVyKKMp/DuHZgk.RiiEXK8YVH.b2nuOO/";
       description = "Yuchen Guo";
       packages = with pkgs; [
-        vscodium
         qrencode
         xournalpp
         mpv
@@ -154,7 +153,18 @@
         pulseaudio
         gpxsee
         proxychains-ng
-        emacs-nox
+        ((pkgs.emacsPackagesFor pkgs.emacs-nox).emacsWithPackages (
+          epkgs:
+          builtins.attrValues {
+            inherit (epkgs)
+              nix-mode
+              magit
+              pyim
+              pyim-basedict
+              ;
+            inherit (epkgs.treesit-grammars) with-all-grammars;
+          }
+        ))
         (pkgs.pass.withExtensions (exts: [ exts.pass-otp ]))
       ];
       extraGroups = [
