@@ -58,7 +58,7 @@
     programs.git.enable = true;
 
     networking = {
-      hostname = "tieling";
+      hostName = "tieling";
       firewall.enable = true;
       nameservers = [ "127.0.0.1" ];
       networkmanager = {
