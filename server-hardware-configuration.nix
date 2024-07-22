@@ -9,6 +9,7 @@
 {
 
   imports = [
+    (modulesPath + "/profiles/headless.nix")
     (modulesPath + "/profiles/hardened.nix")
     (modulesPath + "/installer/scan/not-detected.nix")
   ];
