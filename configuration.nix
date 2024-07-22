@@ -57,7 +57,6 @@
   # Set your time zone.
   time.timeZone = "Asia/Shanghai";
 
-  boot.kernelPackages = pkgs.linuxPackages_latest;
   services = {
     tlp = {
       enable = true;
