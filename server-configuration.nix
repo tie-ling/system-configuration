@@ -213,6 +213,9 @@
 
           # xmlrpc
           network.xmlrpc.size_limit.set = 8M
+
+          # flood
+          scgi_port = 127.0.0.1:5000
         '';
       };
       openssh = {
