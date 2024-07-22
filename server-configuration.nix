@@ -260,9 +260,6 @@
 
           # port for flood
           scgi_port = 127.0.0.1:5000
-          scgi_local = (cfg.rpcsock)
-          schedule = scgi_group,0,0,"execute.nothrow=chown,\":rtorrent\",(cfg.rpcsock)"
-          schedule = scgi_permission,0,0,"execute.nothrow=chmod,\"g+w,o=\",(cfg.rpcsock)"
 
           # pyroadmin config --create-rtorrent-rc
           # rtorrent program settings
