@@ -210,8 +210,8 @@
           # Watch directories (add more as you like, but use unique schedule names)
           schedule2 = watch_start, 10, 10, ((load.start, (cat, (cfg.watchDir1), "/*.torrent")))
 
-          # xmlrpc
-          network.xmlrpc.size_limit.set = 8M
+          # port for flood
+          scgi_port = 127.0.0.1:5000
         '';
       };
       openssh = {
