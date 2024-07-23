@@ -90,10 +90,6 @@
   networking = {
     firewall.enable = true;
   };
-  services.xserver.desktopManager.kodi = {
-    enable = true;
-    package = pkgs.kodi-gbm;
-  };
   users.mutableUsers = false;
   users.users = {
     yc = {
@@ -102,6 +98,7 @@
       extraGroups = [
         # use doas
         "wheel"
+        "input"
       ];
       isNormalUser = true;
       openssh.authorizedKeys.keys = [
