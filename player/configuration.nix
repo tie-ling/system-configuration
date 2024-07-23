@@ -13,6 +13,8 @@
 {
 
   boot.loader.systemd-boot.enable = true;
+  boot.loader.systemd-boot.editor = false;
+  boot.loader.systemd-boot.memtest86.enable = true;
 
   boot.loader.efi.canTouchEfiVariables = true;
 
@@ -33,8 +35,28 @@
 
   hardware.opengl.enable = true;
   hardware.opengl.extraPackages = with pkgs; [ intel-media-driver ];
+  # use alsa; which supports hdmi passthrough
+  hardware.pulseaudio.enable = false;
+  services.pipewire.enable = false;
+  sound.enable = true;
+
 
   services = {
+    displayManager = {
+      enable = true;
+      autoLogin = {
+        enable = true;
+        user = "yc";
+      };
+      lightdm = {
+        enable = true;
+        greeter.enable = false;
+      };
+    };
+    xserver = {
+      enable = true;
+      desktopManager.kodi.enable = true;
+    };
     tlp = {
       enable = true;
       settings = {
@@ -93,9 +115,8 @@
       extraGroups = [
         # use doas
         "wheel"
-        # allow kodi access to keyboards and audio device
+        # allow kodi access to keyboards
         "input"
-        "audio"
       ];
       isNormalUser = true;
       openssh.authorizedKeys.keys = [
@@ -118,7 +139,6 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-    kodi-gbm
     mg
     # create secure boot keys
     sbctl
