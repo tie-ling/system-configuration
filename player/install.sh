@@ -1,5 +1,4 @@
-# nixos-rebuild --option substituters "https://mirrors.tuna.tsinghua.edu.cn/nix-channels/store"
-# https://mirror.sjtu.edu.cn/nix-channels/store
+# nixos-rebuild --option substituters https://mirror.sjtu.edu.cn/nix-channels/store
 
 DISK=/dev/disk/by-id/ata-SDEZS25-480G-Z01_183517455908
 
