@@ -45,6 +45,7 @@
     device = "192.168.1.192:/rtorrent";
     fsType = "nfs";
     options = [
+      "X-mount.mkdir"
       "nfsvers=4"
       "noauto"
     ];
