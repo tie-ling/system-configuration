@@ -41,23 +41,6 @@
   sound.enable = true;
 
   services = {
-    displayManager = {
-      enable = true;
-      autoLogin = {
-        enable = true;
-        user = "yc";
-      };
-    };
-    xserver = {
-      enable = true;
-      desktopManager.kodi.enable = true;
-      displayManager = {
-        lightdm = {
-          enable = true;
-          greeter.enable = false;
-        };
-      };
-    };
     tlp = {
       enable = true;
       settings = {
@@ -144,6 +127,7 @@
     # create secure boot keys
     sbctl
     powertop
+    kodi-gbm
   ];
 
   services.getty.autologinUser = "yc";
