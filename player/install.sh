@@ -34,6 +34,6 @@ swapon /mnt/swapfile
 mkdir -p /mnt/boot
 mount -o umask=077,iocharset=iso8859-1  ${DISK}-part1 /mnt/boot
 
-nixos-install --root /mnt --no-root-passwd --flake github:tie-ling/nconf#qinghe
+nixos-install --root /mnt --no-root-passwd --flake github:tie-ling/tconf#qinghe
 
 poweroff

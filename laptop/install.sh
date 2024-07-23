@@ -38,7 +38,7 @@ swapon /mnt/swapfile
 mkdir -p /mnt/boot
 mount -o umask=077,iocharset=iso8859-1  ${DISK}-part1 /mnt/boot
 
-nixos-install --root /mnt --no-root-passwd --flake github:tie-ling/nconf#qinghe
+nixos-install --root /mnt --no-root-passwd --flake github:tie-ling/tconf#qinghe
 
 poweroff
 
@@ -56,7 +56,7 @@ git reset --hard
 sway
 
 # clone config repo
-git clone git@github.com:tie-ling/nconf
+git clone git@github.com:tie-ling/tconf
 
 # clean up
 rm -rf old gpg-2024* alpine-dots
