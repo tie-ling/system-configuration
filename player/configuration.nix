@@ -49,6 +49,14 @@
         TLP_PERSISTENT_DEFAULT = 1;
       };
     };
+    openssh = {
+      enable = true;
+      settings = {
+        PasswordAuthentication = false;
+      };
+      allowSFTP = true;
+      openFirewall = true;
+    };
     logind = {
       extraConfig = ''
         HandlePowerKey=suspend
@@ -93,6 +101,9 @@
         "wheel"
       ];
       isNormalUser = true;
+      openssh.authorizedKeys.keys = [
+        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDWeAeIuIf2Zyv+d+J6ZWGuKx1lmKFa6UtzCTNtB5+Ev openpgp:0x1FD7B98A"
+      ];
     };
   };
   fonts.packages = builtins.attrValues {
@@ -149,5 +160,4 @@
       # grep -e 'tls://' -e 'tcp://' -e 'quic://' test.html | grep online | sed 's|<td id="address">|"|' | sed 's|</td><td.*|"|g' | sort | wl-copy -n
       (import ../yggdrasil-peers.nix);
   };
-
 }
