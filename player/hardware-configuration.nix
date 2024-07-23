@@ -48,6 +48,7 @@
       "X-mount.mkdir"
       "nfsvers=4"
       "noauto"
+      "x-systemd.automount"
     ];
   };
 
