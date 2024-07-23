@@ -90,11 +90,14 @@
   networking = {
     firewall.enable = true;
   };
+  services.xserver.desktopManager.kodi = {
+    enable = true;
+    package = pkgs.kodi-gbm;
+  };
   users.mutableUsers = false;
   users.users = {
     yc = {
       initialHashedPassword = "$6$UxT9KYGGV6ik$BhH3Q.2F8x1llZQLUS1Gm4AxU7bmgZUP7pNX6Qt3qrdXUy7ZYByl5RVyKKMp/DuHZgk.RiiEXK8YVH.b2nuOO/";
-      packages = with pkgs; [ kodi-gbm ];
       description = "Yuchen Guo";
       extraGroups = [
         # use doas
@@ -121,6 +124,7 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
+    kodi-gbm
     mg
     # create secure boot keys
     sbctl
