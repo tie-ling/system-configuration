@@ -65,11 +65,6 @@
       lidSwitchDocked = "ignore";
       lidSwitchExternalPower = "suspend";
     };
-    pipewire = {
-      enable = true;
-      alsa.enable = true;
-      pulse.enable = true;
-    };
   };
   security = {
     doas.enable = true;
@@ -98,8 +93,9 @@
       extraGroups = [
         # use doas
         "wheel"
-        # allow kodi access to keyboards
+        # allow kodi access to keyboards and audio device
         "input"
+        "audio"
       ];
       isNormalUser = true;
       openssh.authorizedKeys.keys = [
