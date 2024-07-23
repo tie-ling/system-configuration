@@ -31,6 +31,9 @@
   # Set your time zone.
   time.timeZone = "Asia/Shanghai";
 
+  hardware.graphics.enable = true;
+  hardware.graphics.extraPackages = with pkgs; [ intel-media-driver intel-ocl ];
+
   services = {
     tlp = {
       enable = true;
