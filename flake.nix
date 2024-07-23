@@ -17,8 +17,8 @@
           inherit inputs;
         };
         modules = [
-          ./configuration.nix
-          ./hardware-configuration.nix
+          ./laptop/configuration.nix
+          ./laptop/hardware-configuration.nix
           # add your model from this list: https://github.com/NixOS/nixos-hardware/blob/master/flake.nix
           nixos-hardware.nixosModules.lenovo-thinkpad-t14-amd-gen4
         ];
@@ -28,10 +28,18 @@
           inherit inputs;
         };
         modules = [
-          ./server-configuration.nix
-          ./server-hardware-configuration.nix
+          ./server/configuration.nix
+          ./server/hardware-configuration.nix
         ];
       };
-
+      nixosConfigurations.player = nixpkgs.lib.nixosSystem {
+        specialArgs = {
+          inherit inputs;
+        };
+        modules = [
+          ./player/configuration.nix
+          ./player/hardware-configuration.nix
+        ];
+      };
     };
 }

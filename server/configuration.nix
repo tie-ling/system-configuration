@@ -179,10 +179,8 @@
         openFirewall = true;
         performanceNetParameters = true;
         settings = {
-          download-dir =
-            "${config.services.transmission.home}/已下载";
-          incomplete-dir =
-            "${config.services.transmission.home}/未完成";
+          download-dir = "${config.services.transmission.home}/已下载";
+          incomplete-dir = "${config.services.transmission.home}/未完成";
           incomplete-dir-enabled = true;
           watch-dir = "${config.services.transmission.home}/添加种子";
           watch-dir-enabled = true;
@@ -260,7 +258,7 @@
         settings.Peers =
           #curl -o test.html https://publicpeers.neilalexander.dev/
           # grep -e 'tls://' -e 'tcp://' -e 'quic://' test.html | grep online | sed 's|<td id="address">|"|' | sed 's|</td><td.*|"|g' | sort | wl-copy -n
-          (import ./yggdrasil-peers.nix);
+          (import ../yggdrasil-peers.nix);
       };
       dnscrypt-proxy2 = {
         enable = true;

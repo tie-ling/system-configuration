@@ -11,12 +11,6 @@
 }:
 
 {
-  imports = [
-    # Include the results of the hardware scan.
-    ./hardware-configuration.nix
-  ];
-
-  powerManagement.powertop.enable = true;
 
   boot.loader.systemd-boot.enable = true;
 
