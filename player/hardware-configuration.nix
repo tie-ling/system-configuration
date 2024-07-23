@@ -12,7 +12,7 @@
 {
   # do not use hardened; interfere with amd sleep and power save
   imports = [
-    # (modulesPath + "/profiles/hardened.nix")
+    (modulesPath + "/profiles/hardened.nix")
     (modulesPath + "/installer/scan/not-detected.nix")
   ];
 
