@@ -98,6 +98,7 @@
       extraGroups = [
         # use doas
         "wheel"
+        # allow kodi access to keyboards
         "input"
       ];
       isNormalUser = true;
