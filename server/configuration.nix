@@ -177,6 +177,7 @@
       };
       transmission = {
         enable = true;
+        package = pkgs.transmission_4
         home = "/rtorrent";
         downloadDirPermissions = "755";
         openFirewall = true;
