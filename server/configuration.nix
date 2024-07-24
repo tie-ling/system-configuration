@@ -192,6 +192,7 @@
           queue-stalled-enabled = false;
           seed-queue-enabled = false;
           peer-limit-global = 2048;
+          cache-size-mb = 2048;
         };
       };
       openssh = {
