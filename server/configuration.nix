@@ -194,6 +194,8 @@
           seed-queue-enabled = false;
           peer-limit-global = 2048;
           cache-size-mb = 2048;
+          preallocation = 1;
+          # rename-partial-files = true;
         };
       };
       openssh = {
