@@ -188,6 +188,10 @@
           watch-dir = "${config.services.transmission.home}/添加种子";
           watch-dir-enabled = true;
           trash-original-torrent-files = true;
+          download-queue-enabled = false;
+          queue-stalled-enabled = false;
+          seed-queue-enabled = false;
+          peer-limit-global = 2048;
         };
       };
       openssh = {
