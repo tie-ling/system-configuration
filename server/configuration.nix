@@ -184,18 +184,19 @@
         performanceNetParameters = true;
         settings = {
           download-dir = "${config.services.transmission.home}/已下载";
-          incomplete-dir = "${config.services.transmission.home}/未完成";
+          # 不能用未完成文件夹，因为会用很多资源把文件复制过去
+          # 用 rename partial files
+          rename-partial-files = true;
           incomplete-dir-enabled = false;
-          watch-dir = "${config.services.transmission.home}/添加种子";
-          watch-dir-enabled = true;
+          watch-dir-enabled = false;
           trash-original-torrent-files = true;
           download-queue-enabled = false;
           queue-stalled-enabled = false;
           seed-queue-enabled = false;
-          peer-limit-global = 2048;
+          peer-limit-global = 10240;
+          peer-limit-per-torrent = 100;
           cache-size-mb = 2048;
           preallocation = 1;
-          rename-partial-files = true;
         };
       };
       openssh = {
