@@ -185,7 +185,7 @@
         settings = {
           download-dir = "${config.services.transmission.home}/已下载";
           incomplete-dir = "${config.services.transmission.home}/未完成";
-          incomplete-dir-enabled = true;
+          incomplete-dir-enabled = false;
           watch-dir = "${config.services.transmission.home}/添加种子";
           watch-dir-enabled = true;
           trash-original-torrent-files = true;
@@ -195,7 +195,7 @@
           peer-limit-global = 2048;
           cache-size-mb = 2048;
           preallocation = 1;
-          # rename-partial-files = true;
+          rename-partial-files = true;
         };
       };
       openssh = {
