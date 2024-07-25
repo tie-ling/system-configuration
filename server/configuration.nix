@@ -351,7 +351,7 @@
           ##log.add_output = "tracker_debug", "log"
 
           # fix socket permission
-          execute.nothrow = sh, -c, (cat, "chmod", "a+rwx", (cfg.basedir),rtorrent.sock)
+          execute.nothrow = sh, -c, (cat, "chmod ", "a+rwx ", (cfg.basedir),rtorrent.sock)
           ### END of rtorrent.rc ###
         '';
       };
