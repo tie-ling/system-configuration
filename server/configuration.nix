@@ -248,13 +248,13 @@
           network.port_random.set = no
 
           # Peer settings
-          throttle.max_uploads.set = 300
-          throttle.max_downloads.set = 300
-          throttle.max_uploads.global.set = 12000
-          throttle.max_downloads.global.set = 12000
+          throttle.max_uploads.set = 100
+          throttle.max_downloads.set = 100
+          throttle.max_uploads.global.set = 1200
+          throttle.max_downloads.global.set = 1200
 
-          throttle.min_peers.normal.set = 200
-          throttle.max_peers.normal.set = 250
+          throttle.min_peers.normal.set = 30
+          throttle.max_peers.normal.set = 50
           throttle.min_peers.seed.set = -1
           throttle.max_peers.seed.set = -1
           trackers.numwant.set = 200
