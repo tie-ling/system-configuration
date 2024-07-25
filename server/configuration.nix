@@ -194,7 +194,6 @@
       transmission = {
         enable = true;
         package = pkgs.transmission_4;
-        home = "/rtorrent/transmission";
         downloadDirPermissions = "755";
         openFirewall = true;
         performanceNetParameters = true;
@@ -253,13 +252,13 @@
           network.port_random.set = no
 
           # Peer settings
-          throttle.max_uploads.set = 300
-          throttle.max_downloads.set = 300
-          throttle.max_uploads.global.set = 10000
-          throttle.max_downloads.global.set = 10000
+          throttle.max_uploads.set = 100
+          throttle.max_downloads.set = 100
+          throttle.max_uploads.global.set = 1200
+          throttle.max_downloads.global.set = 1200
 
           throttle.min_peers.normal.set = 200
-          throttle.max_peers.normal.set = 300
+          throttle.max_peers.normal.set = 250
           throttle.min_peers.seed.set = -1
           throttle.max_peers.seed.set = -1
           trackers.numwant.set = 200
@@ -270,8 +269,8 @@
           # an `ulimit` of 1024 (a common default). You MUST leave
           # a ceiling of handles reserved for rTorrent's internal needs!
           network.http.max_open.set = 50
-          network.max_open_files.set = 6000
-          network.max_open_sockets.set = 3000
+          network.max_open_files.set = 2048
+          network.max_open_sockets.set = 999
 
           # Memory resource usage (increase if you have a large number of items loaded,
           # and/or the available resources to spend)
