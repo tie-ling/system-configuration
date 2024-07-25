@@ -120,6 +120,10 @@
     boot.kernel.sysctl = {
       "net.core.rmem_max" = 16777216;
       "net.core.wmem_max" = 16777216;
+      "net.ipv4.tcp_wmem" = "4096 12582912 16777216";
+      "net.ipv4.tcp_rmem" = "4096 12582912 16777216";
+      "net.ipv6.tcp_wmem" = "4096 12582912 16777216";
+      "net.ipv6.tcp_rmem" = "4096 12582912 16777216";
     };
     services = {
       # workaround for hardened profile
