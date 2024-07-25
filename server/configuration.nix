@@ -327,6 +327,7 @@
           print = (cat, "Logging to ", (cfg.logfile))
           log.open_file = "log", (cfg.logfile)
           log.add_output = "info", "log"
+          log.add_output = "torrent", "log"
           ##log.add_output = "tracker_debug", "log"
 
           pieces.hash.on_completion = 0
