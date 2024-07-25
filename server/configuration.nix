@@ -187,7 +187,6 @@
         enable = true;
         dataDir = "/rtorrent/";
         downloadDir = "/rtorrent/已下载";
-        package = pkgs.jesec-rtorrent;
         openFirewall = true;
         port = 50000;
         dataPermissions = "0755";
