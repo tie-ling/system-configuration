@@ -204,7 +204,7 @@
           # or, on top of custom config: import = /etc/rtorrent/rtorrent.rc
 
           # rTorrent runtime directory (cfg.basedir) [default: "$HOME/.local/share/rtorrent"]
-          method.insert = cfg.basedir,  private|const|string, (cat,(fs.homedir),"/rtorrent/")
+          method.insert = cfg.basedir,  private|const|string, (cat,(fs.homedir))
 
           # Default download directory (cfg.download) [default: "$(cfg.basedir)/download"]
           method.insert = cfg.download, private|const|string, (cat,(cfg.basedir),"download/")
