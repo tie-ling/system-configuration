@@ -115,6 +115,16 @@
 
     systemd.services.rtorrent.serviceConfig.LimitNOFILE = 10240;
 
+    # rtorrent tweaks
+
+    boot.kernel.sysctl = {
+      "net.core.rmem_max" = 16777216;
+      "net.core.wmem_max" = 16777216;
+      "net.ipv4.tcp_wmem" = "4096 12582912 16777216";
+      "net.ipv4.tcp_rmem" = "4096 12582912 16777216";
+      "net.ipv6.tcp_wmem" = "4096 12582912 16777216";
+      "net.ipv6.tcp_rmem" = "4096 12582912 16777216";
+    };
     services = {
       # workaround for hardened profile
       logrotate.checkConfig = false;
@@ -180,6 +190,32 @@
       flood = {
         enable = true;
       };
+      # rtorrent uses performance tweaks
+      transmission = {
+        enable = true;
+        package = pkgs.transmission_4;
+        home = "/rtorrent/transmission";
+        downloadDirPermissions = "755";
+        openFirewall = true;
+        performanceNetParameters = true;
+        settings = {
+          utp-enabled = true;
+          download-dir = "${config.services.transmission.home}/已下载";
+          # 不能用未完成文件夹，因为会用很多资源把文件复制过去
+          # 用 rename partial files
+          rename-partial-files = true;
+          incomplete-dir-enabled = false;
+          watch-dir-enabled = false;
+          trash-original-torrent-files = true;
+          download-queue-enabled = false;
+          queue-stalled-enabled = false;
+          seed-queue-enabled = false;
+          peer-limit-global = 10240;
+          peer-limit-per-torrent = 100;
+          cache-size-mb = 2048;
+          preallocation = 1;
+        };
+      };
       rtorrent = {
         enable = true;
         dataDir = "/rtorrent/";
@@ -217,14 +253,16 @@
           network.port_random.set = no
 
           # Peer settings
-          throttle.max_uploads.set = 100
-          throttle.max_uploads.global.set = 250
+          throttle.max_uploads.set = 300
+          throttle.max_downloads.set = 300
+          throttle.max_uploads.global.set = 10000
+          throttle.max_downloads.global.set = 10000
 
-          throttle.min_peers.normal.set = 20
-          throttle.max_peers.normal.set = 60
-          throttle.min_peers.seed.set = 30
-          throttle.max_peers.seed.set = 80
-          trackers.numwant.set = 80
+          throttle.min_peers.normal.set = 200
+          throttle.max_peers.normal.set = 300
+          throttle.min_peers.seed.set = -1
+          throttle.max_peers.seed.set = -1
+          trackers.numwant.set = 200
 
           protocol.encryption.set = allow_incoming,try_outgoing,enable_retry
 
@@ -232,13 +270,17 @@
           # an `ulimit` of 1024 (a common default). You MUST leave
           # a ceiling of handles reserved for rTorrent's internal needs!
           network.http.max_open.set = 50
-          network.max_open_files.set = 600
-          network.max_open_sockets.set = 300
+          network.max_open_files.set = 6000
+          network.max_open_sockets.set = 3000
 
           # Memory resource usage (increase if you have a large number of items loaded,
           # and/or the available resources to spend)
-          pieces.memory.max.set = 1800M
+          pieces.memory.max.set = 2400M
           network.xmlrpc.size_limit.set = 4M
+
+          # https://github.com/rakshasa/rtorrent/wiki/Performance-Tuning
+          network.receive_buffer.size.set =  4M
+          network.send_buffer.size.set    = 12M
 
           # Basic operational settings (no need to change these)
           session.path.set = (cat, (cfg.session))
