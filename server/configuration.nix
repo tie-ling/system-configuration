@@ -223,7 +223,7 @@
         port = 50000;
         dataPermissions = "0755";
         configText = lib.mkForce ''
-          https://rtorrent-docs.readthedocs.io/en/latest/cmd-ref.html
+          # https://rtorrent-docs.readthedocs.io/en/latest/cmd-ref.html
           #############################################################################
           # A minimal rTorrent configuration that provides the basic features
           # you want to have in addition to the built-in defaults.
