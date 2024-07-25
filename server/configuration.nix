@@ -120,10 +120,6 @@
     boot.kernel.sysctl = {
       "net.core.rmem_max" = 16777216;
       "net.core.wmem_max" = 16777216;
-      "net.ipv4.tcp_wmem" = "4096 12582912 16777216";
-      "net.ipv4.tcp_rmem" = "4096 12582912 16777216";
-      "net.ipv6.tcp_wmem" = "4096 12582912 16777216";
-      "net.ipv6.tcp_rmem" = "4096 12582912 16777216";
     };
     services = {
       # workaround for hardened profile
@@ -252,10 +248,10 @@
           network.port_random.set = no
 
           # Peer settings
-          throttle.max_uploads.set = 100
-          throttle.max_downloads.set = 100
-          throttle.max_uploads.global.set = 1200
-          throttle.max_downloads.global.set = 1200
+          throttle.max_uploads.set = 300
+          throttle.max_downloads.set = 300
+          throttle.max_uploads.global.set = 12000
+          throttle.max_downloads.global.set = 12000
 
           throttle.min_peers.normal.set = 200
           throttle.max_peers.normal.set = 250
