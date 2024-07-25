@@ -91,6 +91,9 @@
           "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMdVFa8xiHlDR9keRNERhNysEfdLrk/oKOFc+U8bQFAE u0_a298@localhost"
           "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDWeAeIuIf2Zyv+d+J6ZWGuKx1lmKFa6UtzCTNtB5+Ev openpgp:0x1FD7B98A"
         ];
+        # for rtorrent to watch new torrents
+        createHome = true;
+        homeMode = "755";
       };
       yc = {
         isNormalUser = true;
@@ -112,6 +115,8 @@
       ];
       allowedUDPPorts = [ ];
     };
+
+    systemd.services.rtorrent.serviceConfig.LimitNOFILE = 10240;
 
     services = {
       # workaround for hardened profile
@@ -175,29 +180,93 @@
           };
         };
       };
-      transmission = {
+      flood = {
         enable = true;
-        package = pkgs.transmission_4;
-        home = "/rtorrent";
-        downloadDirPermissions = "755";
+      };
+      rtorrent = {
+        enable = true;
+        dataDir = "/rtorrent/";
+        downloadDir = "/rtorrent/已下载";
+        package = pkgs.jesec-rtorrent;
         openFirewall = true;
-        performanceNetParameters = true;
-        settings = {
-          download-dir = "${config.services.transmission.home}/已下载";
-          # 不能用未完成文件夹，因为会用很多资源把文件复制过去
-          # 用 rename partial files
-          rename-partial-files = true;
-          incomplete-dir-enabled = false;
-          watch-dir-enabled = false;
-          trash-original-torrent-files = true;
-          download-queue-enabled = false;
-          queue-stalled-enabled = false;
-          seed-queue-enabled = false;
-          peer-limit-global = 10240;
-          peer-limit-per-torrent = 100;
-          cache-size-mb = 2048;
-          preallocation = 1;
-        };
+        port = 50000;
+        dataPermissions = "0755";
+        configText = lib.mkForce ''
+          # Instance layout (base paths)
+          method.insert = cfg.basedir, private|const|string, (cat,"/rtorrent/")
+          method.insert = cfg.watch,   private|const|string, (cat,(cfg.basedir),"watch/")
+          method.insert = cfg.logs,    private|const|string, (cat,(cfg.basedir),"log/")
+          method.insert = cfg.logfile, private|const|string, (cat,(cfg.logs),(system.time),".log")
+
+          # Create instance directories
+          execute.throw = sh, -c, (cat, "mkdir -p ", (cfg.basedir), "/session ", (cfg.watch), " ", (cfg.logs))
+
+          # Listening port for incoming peer traffic (fixed; you can also randomize it)
+          network.port_range.set = 50000-50000
+          network.port_random.set = no
+
+          # Peer settings
+          throttle.max_uploads.set = 100
+          throttle.max_uploads.global.set = 250
+
+          throttle.min_peers.normal.set = 20
+          throttle.max_peers.normal.set = 60
+          throttle.min_peers.seed.set = 30
+          throttle.max_peers.seed.set = 80
+          trackers.numwant.set = 80
+
+          protocol.encryption.set = allow_incoming,try_outgoing,enable_retry
+
+          # Limits for file handle resources, this is optimized for
+          # an `ulimit` of 1024 (a common default). You MUST leave
+          # a ceiling of handles reserved for rTorrent's internal needs!
+          network.http.max_open.set = 50
+          network.max_open_files.set = 600
+          network.max_open_sockets.set = 3000
+
+          # Memory resource usage (increase if you have a large number of items loaded,
+          # and/or the available resources to spend)
+          pieces.memory.max.set = 1800M
+          network.xmlrpc.size_limit.set = 32M
+
+          # Basic operational settings (no need to change these)
+          session.path.set = (cat, (cfg.basedir), "session/")
+          directory.default.set = (cat, (cfg.basedir), "已下载/")
+          log.execute = (cat, (cfg.logs), "execute.log")
+          ##log.xmlrpc = (cat, (cfg.logs), "xmlrpc.log")
+          execute.nothrow = sh, -c, (cat, "echo >", (session.path), "rtorrent.pid", " ", (system.pid))
+
+          # Other operational settings (check & adapt)
+          encoding.add = utf8
+          system.umask.set = 0027
+          system.cwd.set = (cfg.basedir)
+          network.http.dns_cache_timeout.set = 25
+          schedule2 = monitor_diskspace, 15, 60, ((close_low_diskspace, 10000M))
+
+          # Watch directories (add more as you like, but use unique schedule names)
+          #schedule2 = watch_start, 10, 10, ((load.start, (cat, (cfg.watch), "start/*.torrent")))
+          #schedule2 = watch_load, 11, 10, ((load.normal, (cat, (cfg.watch), "load/*.torrent")))
+
+          # Logging:
+          #   Levels = critical error warn notice info debug
+          #   Groups = connection_* dht_* peer_* rpc_* storage_* thread_* tracker_* torrent_*
+          print = (cat, "Logging to ", (cfg.logfile))
+          log.open_file = "log", (cfg.logfile)
+          log.add_output = "info", "log"
+          ##log.add_output = "tracker_debug", "log"
+
+          # port for flood
+          scgi_port = 127.0.0.1:5000
+
+          # rtorrent program settings
+          system.umask.set = 0022
+
+          # torrent network settings
+          dht.mode.set = on
+          protocol.pex.set = yes
+          trackers.use_udp.set = yes
+          protocol.encryption.set = none
+        '';
       };
       openssh = {
         enable = true;
