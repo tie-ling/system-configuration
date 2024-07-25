@@ -113,18 +113,6 @@
       allowedUDPPorts = [ ];
     };
 
-    systemd.services.rtorrent.serviceConfig.LimitNOFILE = 10240;
-
-    # rtorrent tweaks
-
-    boot.kernel.sysctl = {
-      "net.core.rmem_max" = 16777216;
-      "net.core.wmem_max" = 16777216;
-      "net.ipv4.tcp_wmem" = "4096 12582912 16777216";
-      "net.ipv4.tcp_rmem" = "4096 12582912 16777216";
-      "net.ipv6.tcp_wmem" = "4096 12582912 16777216";
-      "net.ipv6.tcp_rmem" = "4096 12582912 16777216";
-    };
     services = {
       # workaround for hardened profile
       logrotate.checkConfig = false;
@@ -181,19 +169,16 @@
             "hosts allow" = "192.168.1.";
           };
           bt = {
-            path = "/rtorrent/download";
+            path = "/rtorrent/已下载";
             "read only" = true;
             "hosts allow" = "192.168.1.";
           };
         };
       };
-      flood = {
-        enable = true;
-      };
-      # rtorrent uses performance tweaks
       transmission = {
         enable = true;
         package = pkgs.transmission_4;
+        home = "/rtorrent";
         downloadDirPermissions = "755";
         openFirewall = true;
         performanceNetParameters = true;
@@ -214,125 +199,7 @@
           cache-size-mb = 2048;
           preallocation = 1;
         };
-      };
-      rtorrent = {
-        enable = true;
-        dataDir = "/rtorrent/";
-        downloadDir = "/rtorrent/download";
-        openFirewall = true;
-        port = 50000;
-        dataPermissions = "0755";
-        configText = lib.mkForce ''
-          # https://rtorrent-docs.readthedocs.io/en/latest/cmd-ref.html
-          #############################################################################
-          # A minimal rTorrent configuration that provides the basic features
-          # you want to have in addition to the built-in defaults.
-          #
-          # See https://github.com/rakshasa/rtorrent/wiki/CONFIG-Template
-          # for an up-to-date version.
-          #############################################################################
-
-          # Instance layout (base paths)
-          method.insert = cfg.basedir,  private|const|string, (cat,"/rtorrent/")
-          method.insert = cfg.download, private|const|string, (cat,(cfg.basedir),"download/")
-          method.insert = cfg.logs,     private|const|string, (cat,(cfg.basedir),"log/")
-          method.insert = cfg.logfile,  private|const|string, (cat,(cfg.logs),"rtorrent-",(system.time),".log")
-          method.insert = cfg.session,  private|const|string, (cat,(cfg.basedir),".session/")
-          method.insert = cfg.watch,    private|const|string, (cat,(cfg.basedir),"watch/")
-
-          # Create instance directories
-          execute.throw = sh, -c, (cat,\
-              "mkdir -p \"",(cfg.download),"\" ",\
-              "\"",(cfg.logs),"\" ",\
-              "\"",(cfg.session),"\" ",\
-              "\"",(cfg.watch),"/load\" ",\
-              "\"",(cfg.watch),"/start\" ")
-
-          # Listening port for incoming peer traffic (fixed; you can also randomize it)
-          network.port_range.set = 50000-50000
-          network.port_random.set = no
-
-          # Peer settings
-          throttle.max_uploads.set = 100
-          throttle.max_downloads.set = 100
-          throttle.max_uploads.global.set = 1200
-          throttle.max_downloads.global.set = 1200
-
-          throttle.min_peers.normal.set = 30
-          throttle.max_peers.normal.set = 50
-          throttle.min_peers.seed.set = -1
-          throttle.max_peers.seed.set = -1
-          trackers.numwant.set = 200
-
-          protocol.encryption.set = allow_incoming,try_outgoing,enable_retry
-
-          # Limits for file handle resources, this is optimized for
-          # an `ulimit` of 1024 (a common default). You MUST leave
-          # a ceiling of handles reserved for rTorrent's internal needs!
-          network.http.max_open.set = 50
-          network.max_open_files.set = 2048
-          network.max_open_sockets.set = 999
-
-          # Memory resource usage (increase if you have a large number of items loaded,
-          # and/or the available resources to spend)
-          pieces.memory.max.set = 2400M
-          network.xmlrpc.size_limit.set = 4M
-
-          # https://github.com/rakshasa/rtorrent/wiki/Performance-Tuning
-          network.receive_buffer.size.set =  4M
-          network.send_buffer.size.set    = 12M
-
-          # Basic operational settings (no need to change these)
-          session.path.set = (cat, (cfg.session))
-          directory.default.set = (cat, (cfg.download))
-          log.execute = (cat, (cfg.logs), "execute.log")
-          ##log.xmlrpc = (cat, (cfg.logs), "xmlrpc.log")
-          execute.nothrow = sh, -c, (cat, "echo >",\
-              (session.path), "rtorrent.pid", " ", (system.pid))
-
-          # Other operational settings (check & adapt)
-          encoding.add = utf8
-          system.umask.set = 0022
-          system.cwd.set = (directory.default)
-          network.http.dns_cache_timeout.set = 25
-          schedule2 = monitor_diskspace, 15, 60, ((close_low_diskspace, 1000M))
-          ##pieces.hash.on_completion.set = no
-          ##view.sort_current = seeding, greater=d.ratio=
-          ##keys.layout.set = qwerty
-          ##network.http.capath.set = "/etc/ssl/certs"
-          ##network.http.ssl_verify_peer.set = 0
-          ##network.http.ssl_verify_host.set = 0
-
-          # Some additional values and commands
-          method.insert = system.startup_time, value|const, (system.time)
-          method.insert = d.data_path, simple,\
-              "if=(d.is_multi_file),\
-                  (cat, (d.directory), /),\
-                  (cat, (d.directory), /, (d.name))"
-          method.insert = d.session_file, simple, "cat=(session.path), (d.hash), .torrent"
-
-          # Watch directories (add more as you like, but use unique schedule names)
-          schedule2 = watch_start, 10, 10, ((load.start_verbose, (cat, (cfg.watch), "start/*.torrent")))
-          schedule2 = watch_load, 11, 10, ((load.verbose, (cat, (cfg.watch), "load/*.torrent")))
-
-          # Run the rTorrent process as a daemon in the background
-          # (and control via XMLRPC sockets)
-          #system.daemon.set = true
-          network.scgi.open_local = (cat,(session.path),rtorrent.sock)
-          execute.nothrow = chmod,777,(cat,(session.path),rtorrent.sock)
-
-          # Logging:
-          #   Levels = critical error warn notice info debug
-          #   Groups = connection_* dht_* peer_* rpc_* storage_* thread_* tracker_* torrent_*
-          print = (cat, "Logging to ", (cfg.logfile))
-          log.open_file = "log", (cfg.logfile)
-          log.add_output = "info", "log"
-          log.add_output = "torrent_debug", "log"
-          ##log.add_output = "tracker_debug", "log"
-
-          pieces.hash.on_completion = 0
-          ### END of rtorrent.rc ###
-        '';
+        webHome = pkgs.flood-for-transmission;
       };
       openssh = {
         enable = true;

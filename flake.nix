@@ -1,7 +1,7 @@
 {
   description = "NixOS configuration with flakes";
   # https://hydra.nixos.org/job/nixos/release-24.05/tested#tabs-status
-  inputs.nixpkgs.url = "nixpkgs/f193f9477c985215795687b43a2788ee85ff86b6";
+  inputs.nixpkgs.url = "nixpkgs/f12ee5f64c6a09995e71c9626d88c4efa983b488";
   # https://github.com/nixos/nixos-hardware
   inputs.nixos-hardware.url = "github:NixOS/nixos-hardware/3980e7816c99d9e4da7a7b762e5b294055b73b2f";
   outputs =
