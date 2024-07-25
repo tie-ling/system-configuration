@@ -197,7 +197,7 @@
           method.insert = cfg.logfile, private|const|string, (cat,(cfg.logs),(system.time),".log")
 
           # Create instance directories
-          execute.throw = sh, -c, (cat, "mkdir -p ", (cfg.basedir), "/session ", " ", (cfg.logs), " ", "/download")
+          execute.throw = sh, -c, (cat, "mkdir -p ", (cfg.basedir), "/session ", " ", (cfg.logs), " ", (cfg.basedir), "/download")
 
           # Basic operational settings (no need to change these)
           session.path.set = (cat, (cfg.basedir), "session/")
