@@ -199,7 +199,9 @@
           cache-size-mb = 2048;
           preallocation = 1;
         };
-        webHome = pkgs.flood-for-transmission;
+        # use official home instead of flood: more performant with
+        # many torrents
+        # webHome = pkgs.flood-for-transmission;
       };
       openssh = {
         enable = true;
