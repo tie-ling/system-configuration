@@ -134,22 +134,6 @@
 
   system.stateVersion = "24.05"; # Did you read the comment?
 
-  boot.extraModprobeConfig = ''
-    options snd-hda-intel patch=hda-jack-retask.fw
-  '';
-
-  hardware.firmware = [
-    (pkgs.writeTextDir "/lib/firmware/hda-jack-retask.fw" ''
-      [codec]
-      0x8086280b 0x80860101 2
-
-      [pincfg]
-      0x05 0x18560070
-      0x06 0x18560070
-      0x07 0x18560070
-    '')
-  ];
-
   services.yggdrasil = {
     persistentKeys = true;
     enable = true;
