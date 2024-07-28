@@ -65,7 +65,7 @@
     };
     logind = {
       extraConfig = ''
-        HandlePowerKey=suspend
+        HandlePowerKey=poweroff
       '';
       lidSwitch = "suspend";
       lidSwitchDocked = "ignore";
