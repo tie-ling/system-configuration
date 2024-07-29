@@ -40,7 +40,23 @@
   services.pipewire.enable = false;
   sound.enable = true;
 
+
   services = {
+    displayManager = {
+      enable = true;
+      autoLogin = {
+        enable = true;
+        user = "yc";
+      };
+      lightdm = {
+        enable = true;
+        greeter.enable = false;
+      };
+    };
+    xserver = {
+      enable = true;
+      desktopManager.kodi.enable = true;
+    };
     tlp = {
       enable = true;
       settings = {
