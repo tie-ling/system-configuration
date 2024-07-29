@@ -40,10 +40,6 @@
   services.pipewire.enable = false;
   sound.enable = true;
 
-  networking.firewall.allowedTCPPorts = [
-    # kodi remote port
-    18068
-  ];
   services = {
     displayManager = {
       enable = true;
@@ -108,7 +104,13 @@
   programs.git.enable = true;
 
   networking = {
-    firewall.enable = true;
+    firewall = {
+      enable = true;
+      allowedTCPPorts = [
+        # kodi remote port
+        18068
+      ];
+    };
   };
   users.mutableUsers = false;
   users.users = {
