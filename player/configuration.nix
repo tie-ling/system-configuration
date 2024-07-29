@@ -40,6 +40,10 @@
   services.pipewire.enable = false;
   sound.enable = true;
 
+  networking.firewall.allowedTCPPorts = [
+    # kodi remote port
+    18068
+  ];
   services = {
     displayManager = {
       enable = true;
