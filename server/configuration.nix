@@ -281,7 +281,7 @@
       };
       # https://www.snapraid.it/manual
       snapraid = {
-        enable = true;
+        enable = false;
         dataDisks = {
           d1 = "/disks/1";
           d2 = "/disks/2";

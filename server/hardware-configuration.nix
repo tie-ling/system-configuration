@@ -59,7 +59,7 @@
 
   fileSystems."/mergerfs" = {
     fsType = "fuse.mergerfs";
-    device = "/disks/1:/disks/2:/disks/3";
+    device = "/disks/1:/disks/2:/disks/3:/disks/4";
     options = ["cache.files=off" "dropcacheonclose=true" "category.create=mfs"];
   };
 
