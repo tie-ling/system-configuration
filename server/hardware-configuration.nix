@@ -25,41 +25,43 @@
   boot.kernelModules = [ "kvm-intel" ];
   boot.extraModulePackages = [ ];
 
-  fileSystems."/" = {
-    device = "npool/root";
-    fsType = "zfs";
-  };
-
-  fileSystems."/home" = {
-    device = "npool/home";
-    fsType = "zfs";
-  };
-
   fileSystems."/boot" = {
-    device = "/dev/disk/by-id/ata-WDC_WD20EJRX-89G3VY0_WD-WCC4M4SUXL4D-part1";
+    device = "/dev/disk/by-id/ata-WDC_WD20EJRX-89G3VY0_WD-WCC4M6ZPTJ7X-part1";
     fsType = "vfat";
   };
 
-  fileSystems."/rtorrent" = {
-    device = "rtorrent";
-    fsType = "zfs";
-    options = [
-      "X-mount.mkdir"
-      "noatime"
-      "nofail"
-    ];
+  fileSystems."/" = {
+    device = "/dev/disk/by-id/ata-WDC_WD20EJRX-89G3VY0_WD-WCC4M6ZPTJ7X-part2";
+    fsType = "xfs";
   };
 
-  swapDevices = [
-    {
-      device = "/dev/disk/by-id/ata-WDC_WD20EJRX-89G3VY0_WD-WCC4M4SUXL4D-part3";
-      randomEncryption = true;
-    }
-    {
-      device = "/dev/disk/by-id/ata-WDC_WD20EJRX-89G3VY0_WD-WCC4M6ZPTJ7X-part3";
-      randomEncryption = true;
-    }
-  ];
+
+  fileSystems."/disks/1" = {
+    device = "/dev/disk/by-id/ata-WDC_WD20EJRX-89G3VY0_WD-WCC4M6ZPTJ7X-part2";
+    fsType = "xfs";
+  };
+
+  fileSystems."/disks/2" = {
+    device = "/dev/disk/by-id/ata-WDC_WD20EJRX-89G3VY0_WD-WCC4M0ZH64T7-part2";
+    fsType = "xfs";
+  };
+
+  fileSystems."/disks/3" = {
+    device = "/dev/disk/by-id/ata-WDC_WD20EJRX-89G3VY0_WD-WCC4M4SUXL4D-part2";
+    fsType = "xfs";
+  };
+
+  # parity disk
+  fileSystems."/disks/4" = {
+    device = "/dev/disk/by-id/ata-WDC_WD20EZRX-00D8PB0_WD-WCC4M1455922-part2";
+    fsType = "xfs";
+  };
+
+  fileSystems."/mergerfs" = {
+    fsType = "fuse.mergerfs";
+    device = "/disks/1:/disks/2:/disks/3";
+    options = ["cache.files=off" "dropcacheonclose=true" "category.create=mfs"];
+  };
 
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
   # (the default) this is the recommended approach. When using systemd-networkd it's

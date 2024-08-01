@@ -100,7 +100,8 @@
       };
     };
     environment = {
-      systemPackages = builtins.attrValues { inherit (pkgs) smartmontools darkhttpd emacs-nox; };
+      systemPackages = builtins.attrValues { inherit (pkgs)
+      smartmontools darkhttpd emacs-nox mergerfs; };
     };
 
     networking.firewall = {
@@ -116,12 +117,7 @@
     services = {
       # workaround for hardened profile
       logrotate.checkConfig = false;
-      zfs = {
-        autoScrub = {
-          enable = true;
-          interval = "quarterly";
-        };
-      };
+
       # nfs4 does not need rpcbind
       rpcbind.enable = lib.mkForce false;
       nfs = {
@@ -135,7 +131,7 @@
           enable = true;
           createMountPoints = true;
           exports = ''
-            /rtorrent    192.168.1.0/24(ro,all_squash)
+            /bt    192.168.1.0/24(ro,all_squash)
           '';
         };
         settings = {
@@ -163,13 +159,13 @@
           server min protocol = SMB3
         '';
         shares = {
-          our = {
-            path = "/home/our";
-            "read only" = false;
-            "hosts allow" = "192.168.1.";
-          };
+          # our = {
+          #   path = "/home/our";
+          #   "read only" = false;
+          #   "hosts allow" = "192.168.1.";
+          # };
           bt = {
-            path = "/rtorrent/已下载";
+            path = "/bt";
             "read only" = true;
             "hosts allow" = "192.168.1.";
           };
@@ -178,7 +174,7 @@
       transmission = {
         enable = true;
         package = pkgs.transmission_4;
-        home = "/rtorrent";
+        home = "/bt";
         downloadDirPermissions = "755";
         openFirewall = true;
         performanceNetParameters = true;
@@ -283,17 +279,32 @@
           ipv6_servers = true;
         };
       };
-      sanoid = {
+      # https://www.snapraid.it/manual
+      snapraid = {
         enable = true;
-        datasets = {
-          "npool/home" = {
-            autosnap = true;
-            autoprune = true;
-            hourly = 2;
-            daily = 3;
-            monthly = 6;
-          };
+        dataDisks = {
+          d1 = "/disks/1";
+          d2 = "/disks/2";
+          d3 = "/disks/3";
         };
+        contentFiles = [
+          "/disks/2/snapraid.content"
+          "/disks/3/snapraid.content"
+          "/var/snapraid/snapraid.content"
+        ];
+        exclude = [
+          "/bt/"
+          "/tmp/"
+          "/var/"
+          "/nix/"
+          "/etc/"
+          "/dev/"
+          "/bin/"
+          "/mnt/"
+        ];
+        parityFiles = [
+          "/disks/4/snapraid.parity"
+        ];
       };
     };
   };
