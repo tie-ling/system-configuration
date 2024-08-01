@@ -101,7 +101,7 @@
     };
     environment = {
       systemPackages = builtins.attrValues { inherit (pkgs)
-      smartmontools darkhttpd emacs-nox mergerfs; };
+      smartmontools darkhttpd mergerfs; };
     };
 
     networking.firewall = {
