@@ -131,7 +131,7 @@
           enable = true;
           createMountPoints = true;
           exports = ''
-            /bt    192.168.1.0/24(ro,all_squash)
+            /mergerfs/bt    192.168.1.0/24(ro,all_squash)
           '';
         };
         settings = {
@@ -165,7 +165,7 @@
           #   "hosts allow" = "192.168.1.";
           # };
           bt = {
-            path = "/bt";
+            path = "/mergerfs/bt";
             "read only" = true;
             "hosts allow" = "192.168.1.";
           };
@@ -174,7 +174,7 @@
       transmission = {
         enable = true;
         package = pkgs.transmission_4;
-        home = "/bt";
+        home = "/mergerfs/bt";
         downloadDirPermissions = "755";
         openFirewall = true;
         performanceNetParameters = true;
