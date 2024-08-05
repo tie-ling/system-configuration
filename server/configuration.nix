@@ -184,20 +184,20 @@
           # 不能用未完成文件夹，因为会用很多资源把文件复制过去
           # 用 rename partial files
           rename-partial-files = true;
-          incomplete-dir-enabled = false;
-          watch-dir-enabled = false;
+          incomplete-dir-enabled = true;
+          watch-dir-enabled = true;
           trash-original-torrent-files = true;
           download-queue-enabled = false;
           queue-stalled-enabled = false;
           seed-queue-enabled = false;
-          peer-limit-global = 10240;
+          peer-limit-global = 2000;
           peer-limit-per-torrent = 100;
-          cache-size-mb = 2048;
+          cache-size-mb = 1024;
           preallocation = 1;
         };
         # use official home instead of flood: more performant with
         # many torrents
-        # webHome = pkgs.flood-for-transmission;
+        webHome = pkgs.flood-for-transmission;
       };
       openssh = {
         enable = true;
