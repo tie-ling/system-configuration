@@ -130,7 +130,7 @@
           enable = true;
           createMountPoints = true;
           exports = ''
-            /mergerfs/bt    192.168.1.0/24(ro,all_squash)
+            /mergerfs/bt    192.168.1.0/24(ro,no_root_squash,fsid=f1ffd5f8-645a-42cf-895e-5140c5e2b879)
           '';
         };
         settings = {

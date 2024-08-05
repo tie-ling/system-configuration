@@ -63,6 +63,9 @@
       "cache.files=off"
       "dropcacheonclose=true"
       "category.create=mfs"
+      # nfs config
+      "noforget"
+      "inodecalc=path-hash"
     ];
   };
 
