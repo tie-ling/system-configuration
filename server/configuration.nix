@@ -100,8 +100,7 @@
       };
     };
     environment = {
-      systemPackages = builtins.attrValues { inherit (pkgs)
-      smartmontools darkhttpd mergerfs; };
+      systemPackages = builtins.attrValues { inherit (pkgs) smartmontools darkhttpd mergerfs; };
     };
 
     networking.firewall = {
@@ -302,9 +301,7 @@
           "/bin/"
           "/mnt/"
         ];
-        parityFiles = [
-          "/disks/4/snapraid.parity"
-        ];
+        parityFiles = [ "/disks/4/snapraid.parity" ];
       };
     };
   };

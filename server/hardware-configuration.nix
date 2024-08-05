@@ -35,7 +35,6 @@
     fsType = "xfs";
   };
 
-
   fileSystems."/disks/1" = {
     device = "/dev/disk/by-id/ata-WDC_WD20EJRX-89G3VY0_WD-WCC4M6ZPTJ7X-part2";
     fsType = "xfs";
@@ -60,7 +59,11 @@
   fileSystems."/mergerfs" = {
     fsType = "fuse.mergerfs";
     device = "/disks/1:/disks/2:/disks/3:/disks/4";
-    options = ["cache.files=off" "dropcacheonclose=true" "category.create=mfs"];
+    options = [
+      "cache.files=off"
+      "dropcacheonclose=true"
+      "category.create=mfs"
+    ];
   };
 
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking

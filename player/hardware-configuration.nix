@@ -19,6 +19,7 @@
   boot.initrd.availableKernelModules = [
     "xhci_pci"
     "ahci"
+    "nvme"
     "usbhid"
     "usb_storage"
     "sd_mod"
@@ -28,12 +29,12 @@
   boot.extraModulePackages = [ ];
 
   fileSystems."/" = {
-    device = "/dev/disk/by-id/ata-SDEZS25-480G-Z01_183517455908-part2";
+    device = "/dev/disk/by-id/nvme-BC711_NVMe_SK_hynix_128GB__CN0BN79341050C76B-part2";
     fsType = "xfs";
   };
 
   fileSystems."/boot" = {
-    device = "/dev/disk/by-id/ata-SDEZS25-480G-Z01_183517455908-part1";
+    device = "/dev/disk/by-id/nvme-BC711_NVMe_SK_hynix_128GB__CN0BN79341050C76B-part1";
     fsType = "vfat";
     options = [
       "fmask=0077"
@@ -41,8 +42,8 @@
     ];
   };
 
-  fileSystems."/rtorrent" = {
-    device = "192.168.1.192:/rtorrent";
+  fileSystems."/bt" = {
+    device = "192.168.1.192:/mergerfs/bt";
     fsType = "nfs";
     options = [
       "X-mount.mkdir"
