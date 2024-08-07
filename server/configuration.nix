@@ -143,7 +143,7 @@
             path = "/mergerfs/bt";
             "read only" = true;
             "hosts allow" = "192.168.1.";
-            "smb encrypt = off";
+            "smb encrypt" = "off";
           };
         };
       };
