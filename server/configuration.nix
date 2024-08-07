@@ -107,8 +107,6 @@
       # ports are also opened by other programs
       # open ports temporarily with nixos-firewall-tool
       allowedTCPPorts = [
-        # nfsv4
-        2049
       ];
       allowedUDPPorts = [ ];
     };
@@ -117,27 +115,6 @@
       # workaround for hardened profile
       logrotate.checkConfig = false;
 
-      # nfs4 does not need rpcbind
-      rpcbind.enable = lib.mkForce false;
-      nfs = {
-        # kodi/coreelec uses nfs3 by default
-        # switch to nfs4 by using settings here
-        # https://kodi.wiki/view/Settings/Services/NFS_Client
-
-        # NO ENCRYPTION, CLEAR TEXT!
-        # use for only public shares or tunnel through something like ssh
-        server = {
-          enable = true;
-          createMountPoints = true;
-          exports = ''
-            /mergerfs/bt    192.168.1.0/24(ro,no_root_squash,fsid=f1ffd5f8-645a-42cf-895e-5140c5e2b879)
-          '';
-        };
-        settings = {
-          nfsd.vers3 = false;
-          nfsd.vers4 = true;
-        };
-      };
       samba-wsdd.enable = false;
       samba = {
         enable = true;

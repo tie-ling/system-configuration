@@ -42,17 +42,6 @@
     ];
   };
 
-  fileSystems."/bt" = {
-    device = "192.168.1.192:/mergerfs/bt";
-    fsType = "nfs";
-    options = [
-      "X-mount.mkdir"
-      "nfsvers=4"
-      "noauto"
-      "x-systemd.automount"
-    ];
-  };
-
   swapDevices = [ { device = "/swapfile"; } ];
 
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
