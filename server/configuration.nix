@@ -160,8 +160,8 @@
           # 不能用未完成文件夹，因为会用很多资源把文件复制过去
           # 用 rename partial files
           rename-partial-files = true;
-          incomplete-dir-enabled = true;
-          watch-dir-enabled = true;
+          incomplete-dir-enabled = false;
+          watch-dir-enabled = false;
           trash-original-torrent-files = true;
           download-queue-enabled = false;
           queue-stalled-enabled = false;
