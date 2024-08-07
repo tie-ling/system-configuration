@@ -131,7 +131,6 @@
         enableWinbindd = false;
         extraConfig = ''
           map to guest = Never
-          server smb encrypt = required
           server min protocol = SMB3
         '';
         shares = {
@@ -144,6 +143,7 @@
             path = "/mergerfs/bt";
             "read only" = true;
             "hosts allow" = "192.168.1.";
+            "smb encrypt = off"
           };
         };
       };
