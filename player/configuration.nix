@@ -41,21 +41,6 @@
   sound.enable = true;
 
   services = {
-    displayManager = {
-      enable = true;
-      autoLogin = {
-        enable = true;
-        user = "yc";
-      };
-    };
-    xserver = {
-      enable = true;
-      desktopManager.kodi.enable = true;
-      displayManager.lightdm = {
-        enable = true;
-        greeter.enable = false;
-      };
-    };
     tlp = {
       enable = true;
       settings = {
@@ -104,13 +89,7 @@
   programs.git.enable = true;
 
   networking = {
-    firewall = {
-      enable = true;
-      allowedTCPPorts = [
-        # kodi remote port
-        18068
-      ];
-    };
+    firewall.enable = true;
   };
   users.mutableUsers = false;
   users.users = {
@@ -155,6 +134,22 @@
 
   system.stateVersion = "24.05"; # Did you read the comment?
 
+  services.greetd = {
+    enable = true;
+    settings = {
+      initial_session = {
+        command = "${pkgs.kodi-gbm}/bin/kodi-standalone";
+        user = "yc";
+      };
+      default_session = {
+        command = "${pkgs.greetd.greetd}/bin/agreety --cmd sway";
+      };
+    };
+  };
+  programs.sway = {
+    enable = true;
+    xwayland.enable = false;
+  };
   services.yggdrasil = {
     persistentKeys = true;
     enable = true;
