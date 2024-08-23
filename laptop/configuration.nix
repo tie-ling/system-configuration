@@ -213,7 +213,6 @@
         };
       };
       DisableBuiltinPDFViewer = true;
-      DisableFirefoxAccounts = true;
       DisableFirefoxStudies = true;
       DisablePocket = true;
       DisableTelemetry = true;
@@ -222,9 +221,6 @@
         Enabled = false;
       };
       DontCheckDefaultBrowser = true;
-      EncryptedMediaExtensions = {
-        Enabled = false;
-      };
       ExtensionUpdate = false;
       Extensions = {
         Install = [ ("file://" + ./umatrix-1.4.4.xpi) ];
@@ -254,9 +250,6 @@
         Enabled = false;
       };
       Permissions = {
-        Location = {
-          BlockNewRequests = true;
-        };
         Notifications = {
           BlockNewRequests = true;
         };
@@ -287,7 +280,6 @@
       "browser.tabs.inTitlebar" = 0;
       "browser.uidensity" = 1;
       "general.smoothScroll" = false;
-      "gfx.font_rendering.opentype_svg.enabled" = false;
       "media.ffmpeg.vaapi.enabled" = true;
       "media.navigator.mediadatadecoder_vpx_enabled" = true;
       "network.IDN_show_punycode" = true;
@@ -299,13 +291,6 @@
       pref("apz.allow_double_tap_zooming", false);
       pref("apz.allow_zooming", false);
       pref("apz.gtk.touchpad_pinch.enabled", false);
-      pref("webgl.disable-extensions", true);
-      pref("webgl.disable-fail-if-major-performance-caveat", true);
-      pref("webgl.min_capability_mode", true);
-      pref("javascript.options.asmjs", false);
-      pref("javascript.options.wasm", false);
-      pref("javascript.options.ion", false);
-      pref("javascript.options.baselinejit", false);
       pref("font.name-list.emoji", "Noto Color Emoji");
     '';
   };
