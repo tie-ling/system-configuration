@@ -106,8 +106,7 @@
     networking.firewall = {
       # ports are also opened by other programs
       # open ports temporarily with nixos-firewall-tool
-      allowedTCPPorts = [
-      ];
+      allowedTCPPorts = [ ];
       allowedUDPPorts = [ ];
     };
 
