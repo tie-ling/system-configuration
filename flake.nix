@@ -19,6 +19,15 @@
           ./laptop/hardware-configuration.nix
         ];
       };
+      nixosConfigurations.dell-7300 = nixpkgs.lib.nixosSystem {
+        specialArgs = {
+          inherit inputs;
+        };
+        modules = [
+          ./dell-7300/configuration.nix
+          ./dell-7300/hardware-configuration.nix
+        ];
+      };
       nixosConfigurations.tieling = nixpkgs.lib.nixosSystem {
         specialArgs = {
           inherit inputs;
