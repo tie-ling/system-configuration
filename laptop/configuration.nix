@@ -18,63 +18,26 @@
 
   boot.loader.efi.canTouchEfiVariables = true;
 
-  services.logrotate.checkConfig = false;
-  environment.memoryAllocator.provider = "libc";
-  security.lockKernelModules = false;
-
-  # must allow simulaneous multithreading for sleep/suspend to work on amd
-  security.allowSimultaneousMultithreading = true;
-
-  security.unprivilegedUsernsClone = true;
-
-  nix.settings.substituters = [ "https://mirror.sjtu.edu.cn/nix-channels/store" ];
+  # nix.settings.substituters = [ "https://mirror.sjtu.edu.cn/nix-channels/store" ];
   programs.sway.enable = true;
-  programs.sway.extraPackages = with pkgs; [
-    foot
-    wmenu
-    swaylock
-    swayidle
-    i3status
-    brightnessctl
-    wl-clipboard
-    grim
-    gnome.adwaita-icon-theme
-    gnome.gnome-themes-extra
-  ];
-  programs.sway.extraSessionCommands = ''
-    export ELECTRON_OZONE_PLATFORM_HINT=wayland
-  '';
+  programs.thunar = {
+    enable = true;
+    plugins = with pkgs.xfce; [ thunar-archive-plugin thunar-volman ];
+  };
+
   networking.hostName = "yinzhou"; # Define your hostname.
-  # Pick only one of the below networking options.
-  # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
+
   networking.networkmanager.enable = true; # Easiest to use and most distros use this by default.
   nix.registry.nixpkgs.flake = inputs.nixpkgs;
 
   # Set your time zone.
-  time.timeZone = "Asia/Shanghai";
+  time.timeZone = "Europe/Berlin";
 
   services = {
-    yggdrasil = {
-      enable = true;
-      openMulticastPort = false;
-      extraArgs = [
-        "-loglevel"
-        "error"
-      ];
-      settings.Peers =
-        #curl -o test.html https://publicpeers.neilalexander.dev/
-        # grep -e 'tls://' -e 'tcp://' -e 'quic://' test.html | grep online | sed 's|<td id="address">|"|' | sed 's|</td><td.*|"|g' | sort | wl-copy -n
-        (import ../yggdrasil-peers.nix);
-    };
     tlp = {
       enable = true;
       settings = {
-        DEVICES_TO_DISABLE_ON_BAT_NOT_IN_USE = "bluetooth wwan";
         STOP_CHARGE_THRESH_BAT0 = 1;
-        CPU_ENERGY_PERF_POLICY_ON_BAT = "power";
-        PLATFORM_PROFILE_ON_BAT = "low-power";
-        CPU_BOOST_ON_BAT = 0;
-        CPU_HWP_DYN_BOOST_ON_BAT = 0;
         # treat everything as battery
         TLP_DEFAULT_MODE = "BAT";
         TLP_PERSISTENT_DEFAULT = 1;
@@ -98,19 +61,7 @@
     doas.enable = true;
     sudo.enable = false;
   };
-  programs.tmux = {
-    enable = true;
-    keyMode = "emacs";
-    newSession = true;
-    terminal = "tmux-direct";
-    extraConfig = ''
-      unbind C-b
-      unbind f7
-      set -u prefix
-      set -g prefix f7
-      bind -N "Send the prefix key" f7 send-prefix
-    '';
-  };
+
   fonts.fontconfig = {
     defaultFonts = {
       sansSerif = [
@@ -139,42 +90,26 @@
   boot.initrd.systemd.enable = true;
 
   programs.git.enable = true;
-  programs.gnupg.agent = {
-    enable = true;
-    enableSSHSupport = true;
-    pinentryPackage = pkgs.pinentry-qt;
-  };
+
   networking = {
     firewall.enable = true;
   };
   users.mutableUsers = false;
   users.users = {
     yc = {
-      initialHashedPassword = "$6$UxT9KYGGV6ik$BhH3Q.2F8x1llZQLUS1Gm4AxU7bmgZUP7pNX6Qt3qrdXUy7ZYByl5RVyKKMp/DuHZgk.RiiEXK8YVH.b2nuOO/";
+      initialHashedPassword = "$y$j9T$S0WLvSG97zHExGCytM8L1/$wKCuLpnhARX5.ErsS9dGKpSLeTuHJ9iD3Kb/O5ZGJe4";
       description = "Yuchen Guo";
       packages = with pkgs; [
         qrencode
         xournalpp
         mpv
         yt-dlp
-        zathura
-        pulseaudio
-        gpxsee
-        proxychains-ng
-        autossh
-        ((pkgs.emacsPackagesFor pkgs.emacs-nox).emacsWithPackages (
-          epkgs:
-          builtins.attrValues {
-            inherit (epkgs)
-              nix-mode
-              magit
-              pyim
-              pyim-basedict
-              ;
-            inherit (epkgs.treesit-grammars) with-all-grammars;
-          }
-        ))
-        (pkgs.pass.withExtensions (exts: [ exts.pass-otp ]))
+        google-chrome
+        libreoffice
+        kdePackages.okular
+        gnucash
+        evince
+        vscodium
       ];
       extraGroups = [
         # use doas
@@ -187,8 +122,6 @@
     inherit (pkgs)
       dejavu_fonts
       noto-fonts-cjk-sans
-      gyre-fonts
-      stix-two
       julia-mono
       ;
   };
@@ -199,112 +132,6 @@
   i18n.defaultLocale = "en_US.UTF-8";
   programs.firefox = {
     enable = true;
-    policies = {
-      "3rdparty" = {
-        Extensions = {
-          # name must be the same as above
-          "uBlock0@raymondhill.net" = {
-            adminSettings = {
-              userSettings = {
-                advancedUserEnabled = true;
-                popupPanelSections = 31;
-              };
-              dynamicFilteringString = ''
-                * * inline-script block
-                * * 1p-script block
-                * * 3p-script block
-                * * 3p-frame block'';
-              hostnameSwitchesString = ''
-                no-cosmetic-filtering: * true
-                no-remote-fonts: * true
-                no-csp-reports: * true
-                no-scripting: * true
-              '';
-            };
-          };
-        };
-      };
-      DisableBuiltinPDFViewer = true;
-      DisableFirefoxStudies = true;
-      DisablePocket = true;
-      DisableTelemetry = true;
-      DisplayMenuBar = "never";
-      DNSOverHTTPS = {
-        Enabled = false;
-      };
-      DontCheckDefaultBrowser = true;
-      ExtensionUpdate = false;
-      Extensions = {
-        Install = [ ("file://" + ./umatrix-1.4.4.xpi) ];
-      };
-      FirefoxHome = {
-        Search = false;
-        TopSites = false;
-        Highlights = false;
-        Snippets = false;
-        SponsoredTopSites = false;
-        Pocket = false;
-        SponsoredPocket = false;
-      };
-      FirefoxSuggest = {
-        SponsoredSuggestions = false;
-      };
-      HardwareAcceleration = true;
-      Homepage = {
-        StartPage = "none";
-      };
-      NetworkPrediction = false;
-      NewTabPage = false;
-      NoDefaultBookmarks = true;
-      OverrideFirstRunPage = "";
-      OverridePostUpdatePage = "";
-      PDFjs = {
-        Enabled = false;
-      };
-      Permissions = {
-        Notifications = {
-          BlockNewRequests = true;
-        };
-      };
-      PictureInPicture = {
-        Enabled = false;
-      };
-      PopupBlocking = {
-        Default = false;
-      };
-      PromptForDownloadLocation = true;
-      SearchSuggestEnabled = false;
-      ShowHomeButton = true;
-      UserMessaging = {
-        WhatsNew = false;
-        ExtensionRecommendations = false;
-        FeatureRecommendations = false;
-        MoreFromMozilla = false;
-        SkipOnboarding = true;
-      };
-    };
-    preferences = {
-      "browser.aboutConfig.showWarning" = false;
-      "browser.backspace_action" = 0;
-      "browser.chrome.site_icons" = false;
-      "browser.display.use_document_fonts" = 0;
-      "browser.tabs.firefox-view" = false;
-      "browser.tabs.inTitlebar" = 0;
-      "browser.uidensity" = 1;
-      "general.smoothScroll" = false;
-      "media.ffmpeg.vaapi.enabled" = true;
-      "media.navigator.mediadatadecoder_vpx_enabled" = true;
-      "network.IDN_show_punycode" = true;
-      "dom.security.https_only_mode" = true;
-      "widget.wayland.opaque-region.enabled" = false;
-    };
-    preferencesStatus = "default";
-    autoConfig = ''
-      pref("apz.allow_double_tap_zooming", false);
-      pref("apz.allow_zooming", false);
-      pref("apz.gtk.touchpad_pinch.enabled", false);
-      pref("font.name-list.emoji", "Noto Color Emoji");
-    '';
   };
 
   # Configure network proxy if necessary
@@ -353,9 +180,6 @@
   # $ nix search wget
   environment.systemPackages = with pkgs; [
     mg
-    # create secure boot keys
-    sbctl
-    powertop
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
