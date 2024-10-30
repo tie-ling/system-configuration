@@ -90,6 +90,7 @@
   boot.initrd.systemd.enable = true;
 
   programs.git.enable = true;
+  services.gvfs.enable = true;
 
   networking = {
     firewall.enable = true;
