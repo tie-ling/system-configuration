@@ -81,8 +81,6 @@
     sudo.enable = false;
   };
 
-  services.gnome.gnome-keyring.enable = true;
-
   fonts.fontconfig = {
     defaultFonts = {
       sansSerif = [
