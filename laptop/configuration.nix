@@ -30,6 +30,11 @@
     grim
     gnome.adwaita-icon-theme
     gnome.gnome-themes-extra
+    kanshi
+    rofi
+    dunst
+    light
+    feh
   ];
   programs.sway.extraSessionCommands = ''
     export ELECTRON_OZONE_PLATFORM_HINT=wayland
