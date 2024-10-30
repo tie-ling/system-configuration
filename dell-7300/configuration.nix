@@ -131,6 +131,8 @@
         gnucash
         evince
         vscodium
+        brightnessctl
+        pavucontrol
       ];
       extraGroups = [
         # use doas
