@@ -154,6 +154,7 @@
   programs.firefox = {
     enable = true;
   };
+  hardware.opengl.extraPackages = with pkgs; [ intel-media-driver ];
 
   # Configure network proxy if necessary
   # networking.proxy.default = "http://user:password@proxy:port/";
