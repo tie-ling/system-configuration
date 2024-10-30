@@ -20,6 +20,20 @@
 
   # nix.settings.substituters = [ "https://mirror.sjtu.edu.cn/nix-channels/store" ];
   programs.sway.enable = true;
+  programs.sway.extraPackages = with pkgs; [
+    foot
+    dmenu
+    wmenu
+    swaylock
+    swayidle
+    waybar
+    grim
+    gnome.adwaita-icon-theme
+    gnome.gnome-themes-extra
+  ];
+  programs.sway.extraSessionCommands = ''
+    export ELECTRON_OZONE_PLATFORM_HINT=wayland
+  '';
   programs.thunar = {
     enable = true;
     plugins = with pkgs.xfce; [ thunar-archive-plugin thunar-volman ];
