@@ -133,6 +133,17 @@
         vscodium
         brightnessctl
         pavucontrol
+        ((pkgs.emacsPackagesFor pkgs.emacs-nox).emacsWithPackages (
+          epkgs:
+          builtins.attrValues {
+            inherit (epkgs)
+              nix-mode
+              magit
+              pyim
+              pyim-basedict
+              ;
+          }
+        ))
       ];
       extraGroups = [
         # use doas
