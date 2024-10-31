@@ -133,11 +133,12 @@
         kdePackages.okular
         gnucash
         evince
-	mupdf
+	      mupdf
         vscodium
         brightnessctl
         pavucontrol
         networkmanagerapplet
+        xarchiver
         ((pkgs.emacsPackagesFor pkgs.emacs-nox).emacsWithPackages (
           epkgs:
           builtins.attrValues {
