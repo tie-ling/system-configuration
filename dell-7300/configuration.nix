@@ -32,6 +32,7 @@
     dunst
     feh
     i3status-rust
+    xdg-utils
   ];
   programs.sway.extraSessionCommands = ''
     export ELECTRON_OZONE_PLATFORM_HINT=wayland
