@@ -22,19 +22,16 @@
   programs.sway.enable = true;
   programs.sway.extraPackages = with pkgs; [
     foot
-    dmenu
     wmenu
     swaylock
     swayidle
-    waybar
     grim
     gnome.adwaita-icon-theme
     gnome.gnome-themes-extra
-    kanshi
     rofi
     dunst
-    light
     feh
+    yambar
   ];
   programs.sway.extraSessionCommands = ''
     export ELECTRON_OZONE_PLATFORM_HINT=wayland
@@ -157,6 +154,7 @@
       dejavu_fonts
       noto-fonts-cjk-sans
       julia-mono
+      font-awesome
       ;
   };
   xdg.portal = {
