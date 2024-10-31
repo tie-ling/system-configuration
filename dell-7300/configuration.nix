@@ -31,7 +31,7 @@
     rofi
     dunst
     feh
-    yambar
+    i3status-rust
   ];
   programs.sway.extraSessionCommands = ''
     export ELECTRON_OZONE_PLATFORM_HINT=wayland
