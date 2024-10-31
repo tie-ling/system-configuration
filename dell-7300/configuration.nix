@@ -26,14 +26,15 @@
     swaylock
     swayidle
     grim
-    gnome.adwaita-icon-theme
+    gnome.adwaita-icon-theme # mouse cursor and icons
     gnome.gnome-themes-extra
     rofi
-    dunst
-    feh
+    dunst # notification daemon
+    feh # simple image viewer
     i3status-rust
-    xdg-utils
+    xdg-utils # important for links in programs to work
   ];
+  # for codium
   programs.sway.extraSessionCommands = ''
     export ELECTRON_OZONE_PLATFORM_HINT=wayland
   '';
@@ -108,6 +109,8 @@
   boot.initrd.systemd.enable = true;
 
   programs.git.enable = true;
+
+  # for trash and mtp in thunar
   services.gvfs.enable = true;
 
   networking = {
@@ -148,6 +151,7 @@
       extraGroups = [
         # use doas
         "wheel"
+        "networkmanager"
       ];
       isNormalUser = true;
     };
