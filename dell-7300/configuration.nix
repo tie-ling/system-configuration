@@ -36,6 +36,7 @@
   programs.sway.extraSessionCommands = ''
     export ELECTRON_OZONE_PLATFORM_HINT=wayland
   '';
+  programs.sway.wrapperFeatures.gtk = true;
   programs.thunar = {
     enable = true;
     plugins = with pkgs.xfce; [ thunar-archive-plugin thunar-volman ];
