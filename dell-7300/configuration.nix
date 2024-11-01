@@ -139,6 +139,10 @@
         pavucontrol
         networkmanagerapplet
         xarchiver
+        # informatik
+        python3
+        sqlite
+        # end informatik
         ((pkgs.emacsPackagesFor pkgs.emacs-nox).emacsWithPackages (
           epkgs:
           builtins.attrValues {
