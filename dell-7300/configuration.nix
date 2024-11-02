@@ -32,6 +32,7 @@
     dunst # notification daemon
     feh # simple image viewer
     i3status-rust
+    wl-clipboard
     xdg-utils # important for links in programs to work
   ];
   # for codium
