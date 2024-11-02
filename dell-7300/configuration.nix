@@ -149,6 +149,8 @@
         python3
         sqlite
         # end informatik
+        # banking
+        jameica
         ((pkgs.emacsPackagesFor pkgs.emacs-nox).emacsWithPackages (
           epkgs:
           builtins.attrValues {
