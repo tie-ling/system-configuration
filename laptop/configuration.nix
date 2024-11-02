@@ -41,7 +41,10 @@
   '';
   programs.thunar = {
     enable = true;
-    plugins = with pkgs.xfce; [ thunar-archive-plugin thunar-volman ];
+    plugins = with pkgs.xfce; [
+      thunar-archive-plugin
+      thunar-volman
+    ];
   };
 
   networking.hostName = "yinzhou"; # Define your hostname.
@@ -140,11 +143,7 @@
     };
   };
   fonts.packages = builtins.attrValues {
-    inherit (pkgs)
-      dejavu_fonts
-      noto-fonts-cjk-sans
-      julia-mono
-      ;
+    inherit (pkgs) dejavu_fonts noto-fonts-cjk-sans julia-mono;
   };
   xdg.portal = {
     enable = true;
@@ -199,9 +198,7 @@
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
-  environment.systemPackages = with pkgs; [
-    mg
-  ];
+  environment.systemPackages = with pkgs; [ mg ];
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.

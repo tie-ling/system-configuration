@@ -41,7 +41,10 @@
   programs.sway.wrapperFeatures.gtk = true;
   programs.thunar = {
     enable = true;
-    plugins = with pkgs.xfce; [ thunar-archive-plugin thunar-volman ];
+    plugins = with pkgs.xfce; [
+      thunar-archive-plugin
+      thunar-volman
+    ];
   };
 
   networking.hostName = "dell-7300"; # Define your hostname.
@@ -118,7 +121,7 @@
   };
   users.mutableUsers = false;
   services.upower.enable = true;
-  
+
   users.users = {
     yc = {
       initialHashedPassword = "$y$j9T$S0WLvSG97zHExGCytM8L1/$wKCuLpnhARX5.ErsS9dGKpSLeTuHJ9iD3Kb/O5ZGJe4";
@@ -133,7 +136,7 @@
         kdePackages.okular
         gnucash
         evince
-	      mupdf
+        mupdf
         vscodium
         brightnessctl
         pavucontrol
@@ -143,6 +146,8 @@
         python3
         sqlite
         # end informatik
+        # webdav ueber nextcloud
+        davfs2
         ((pkgs.emacsPackagesFor pkgs.emacs-nox).emacsWithPackages (
           epkgs:
           builtins.attrValues {
@@ -225,9 +230,7 @@
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
-  environment.systemPackages = with pkgs; [
-    mg
-  ];
+  environment.systemPackages = with pkgs; [ mg ];
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.

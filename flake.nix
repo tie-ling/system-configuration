@@ -4,10 +4,7 @@
   inputs.nixpkgs.url = "nixpkgs/cd3e8833d70618c4eea8df06f95b364b016d4950";
   # https://github.com/nixos/nixos-hardware
   outputs =
-    {
-      self,
-      nixpkgs,
-    }@inputs:
+    { self, nixpkgs }@inputs:
     {
       formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.nixfmt-rfc-style;
       nixosConfigurations.yinzhou = nixpkgs.lib.nixosSystem {

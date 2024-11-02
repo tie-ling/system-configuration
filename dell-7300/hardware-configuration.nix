@@ -11,9 +11,7 @@
 
 {
   # do not use hardened; interfere with amd sleep and power save
-  imports = [
-    (modulesPath + "/installer/scan/not-detected.nix")
-  ];
+  imports = [ (modulesPath + "/installer/scan/not-detected.nix") ];
 
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ "kvm-intel" ];
@@ -28,7 +26,6 @@
     "sd_mod"
     "sdhci_pci"
   ];
-
 
   boot.initrd.luks.devices."root" = {
     device = "/dev/disk/by-id/nvme-Micron_2200S_NVMe_256GB__19322323D84E-part2";
