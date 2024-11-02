@@ -141,6 +141,7 @@
       )
     );
     defaultEditor = true;
+    install = true;
   };
 
   users.users = {
@@ -156,6 +157,7 @@
         libreoffice
         kdePackages.okular
         gnucash
+        aqbanking
         evince
         mupdf
         vscodium
