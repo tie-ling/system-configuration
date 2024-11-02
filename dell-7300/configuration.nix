@@ -116,6 +116,9 @@
   # for trash and mtp in thunar
   services.gvfs.enable = true;
 
+  services.davfs2 = {
+    enable = true;
+  };
   networking = {
     firewall.enable = true;
   };
@@ -146,8 +149,6 @@
         python3
         sqlite
         # end informatik
-        # webdav ueber nextcloud
-        davfs2
         ((pkgs.emacsPackagesFor pkgs.emacs-nox).emacsWithPackages (
           epkgs:
           builtins.attrValues {
