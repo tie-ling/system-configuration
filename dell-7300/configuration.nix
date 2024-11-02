@@ -124,6 +124,23 @@
   };
   users.mutableUsers = false;
   services.upower.enable = true;
+  services.emacs = {
+    enable = true;
+    package = (
+      (pkgs.emacsPackagesFor pkgs.emacs-nox).emacsWithPackages (
+        epkgs:
+        builtins.attrValues {
+          inherit (epkgs)
+            nix-mode
+            magit
+            pyim
+            pyim-basedict
+            ;
+        }
+      )
+    );
+    defaultEditor = true;
+  };
 
   users.users = {
     yc = {
@@ -151,17 +168,6 @@
         # end informatik
         # banking
         jameica
-        ((pkgs.emacsPackagesFor pkgs.emacs-nox).emacsWithPackages (
-          epkgs:
-          builtins.attrValues {
-            inherit (epkgs)
-              nix-mode
-              magit
-              pyim
-              pyim-basedict
-              ;
-          }
-        ))
       ];
       extraGroups = [
         # use doas
