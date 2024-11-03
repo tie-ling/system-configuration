@@ -154,7 +154,7 @@
         kdePackages.okular
         evince
         mupdf
-        vscodium
+        xfce.mousepad
         brightnessctl
         pavucontrol
         networkmanagerapplet
