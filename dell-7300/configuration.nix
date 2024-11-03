@@ -129,6 +129,7 @@
             magit
             pyim
             pyim-basedict
+            company
             ledger-mode
             hledger-mode
             ;
