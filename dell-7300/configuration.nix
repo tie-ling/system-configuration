@@ -40,13 +40,6 @@
     export ELECTRON_OZONE_PLATFORM_HINT=wayland
   '';
   programs.sway.wrapperFeatures.gtk = true;
-  programs.thunar = {
-    enable = true;
-    plugins = with pkgs.xfce; [
-      thunar-archive-plugin
-      thunar-volman
-    ];
-  };
 
   networking.hostName = "dell-7300"; # Define your hostname.
 
@@ -136,6 +129,8 @@
             magit
             pyim
             pyim-basedict
+            ledger-mode
+            hledger-mode
             ;
         }
       )
@@ -149,6 +144,7 @@
       initialHashedPassword = "$y$j9T$S0WLvSG97zHExGCytM8L1/$wKCuLpnhARX5.ErsS9dGKpSLeTuHJ9iD3Kb/O5ZGJe4";
       description = "Yuchen Guo";
       packages = with pkgs; [
+        pcmanfm
         qrencode
         xournalpp
         mpv
@@ -171,6 +167,13 @@
         # end informatik
         # banking
         jameica
+        # bookkeeping
+        ledger
+        ledger-web
+        # haskell bookkeeping
+        hledger
+        hledger-ui
+        hledger-web
       ];
       extraGroups = [
         # use doas
