@@ -130,7 +130,7 @@
             pyim
             pyim-basedict
             ledger-mode
-            hledger-mode
+            company
             ;
         }
       )
@@ -164,10 +164,9 @@
         sqlite
         # end informatik
         # https://plaintextaccounting.org/
-        # haskell bookkeeping
-        hledger
-        hledger-ui
-        hledger-web
+        # cli bookkeeping
+        ledger
+        ledger-web
       ];
       extraGroups = [
         # use doas
