@@ -168,10 +168,6 @@
         hledger
         hledger-ui
         hledger-web
-        # buchhaltung and dependencies
-        haskellPackages.buchhaltung
-        aqbanking
-        dbacl
       ];
       extraGroups = [
         # use doas
