@@ -152,8 +152,6 @@
         chromium
         libreoffice
         kdePackages.okular
-        gnucash
-        aqbanking
         evince
         mupdf
         vscodium
@@ -165,15 +163,15 @@
         python3
         sqlite
         # end informatik
-        # banking
-        jameica
-        # bookkeeping
-        ledger
-        ledger-web
+        # https://plaintextaccounting.org/
         # haskell bookkeeping
         hledger
         hledger-ui
         hledger-web
+        # buchhaltung and dependencies
+        haskellPackages.buchhaltung
+        aqbanking
+        dbacl
       ];
       extraGroups = [
         # use doas
