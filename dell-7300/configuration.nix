@@ -32,6 +32,7 @@
     feh # simple image viewer
     i3status-rust
     wl-clipboard
+    xdg-utils
   ];
 
   networking.hostName = "dell-7300"; # Define your hostname.
