@@ -28,7 +28,7 @@
     grim
     gnome.adwaita-icon-theme # mouse cursor and icons
     gnome.gnome-themes-extra
-    rofi
+    rofi-wayland
     dunst # notification daemon
     feh # simple image viewer
     i3status-rust
