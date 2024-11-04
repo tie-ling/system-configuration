@@ -118,6 +118,11 @@
   };
   users.mutableUsers = false;
   services.upower.enable = true;
+  services.displayManager.sddm = {
+    enable = true;
+    wayland.enable = true;
+  };
+  services.xserver.enable = true;
   services.emacs = {
     enable = true;
     package = (
@@ -137,6 +142,7 @@
     );
     defaultEditor = true;
     install = true;
+    startWithGraphical = true;
   };
 
   users.users = {
