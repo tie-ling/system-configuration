@@ -187,7 +187,6 @@
   xdg.portal = {
     enable = true;
     wlr.enable = true;
-    xdgOpenUsePortal = true;
   };
   i18n.defaultLocale = "en_US.UTF-8";
   programs.firefox = {
