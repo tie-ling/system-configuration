@@ -121,7 +121,7 @@
   services.emacs = {
     enable = true;
     package = (
-      (pkgs.emacsPackagesFor pkgs.emacs-nox).emacsWithPackages (
+      (pkgs.emacsPackagesFor pkgs.emacs29-pgtk).emacsWithPackages (
         epkgs:
         builtins.attrValues {
           inherit (epkgs)
