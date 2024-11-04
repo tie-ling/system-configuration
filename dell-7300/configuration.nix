@@ -22,7 +22,6 @@
   programs.sway.enable = true;
   programs.sway.extraPackages = with pkgs; [
     foot
-    wmenu
     swaylock
     swayidle
     grim
@@ -33,13 +32,7 @@
     feh # simple image viewer
     i3status-rust
     wl-clipboard
-    xdg-utils # important for links in programs to work
   ];
-  # for codium
-  programs.sway.extraSessionCommands = ''
-    export ELECTRON_OZONE_PLATFORM_HINT=wayland
-  '';
-  programs.sway.wrapperFeatures.gtk = true;
 
   networking.hostName = "dell-7300"; # Define your hostname.
 
@@ -122,7 +115,6 @@
     enable = true;
     wayland.enable = true;
   };
-  services.xserver.enable = true;
   services.emacs = {
     enable = true;
     package = (
@@ -194,6 +186,7 @@
   xdg.portal = {
     enable = true;
     wlr.enable = true;
+    xdgOpenUsePortal = true;
   };
   i18n.defaultLocale = "en_US.UTF-8";
   programs.firefox = {
