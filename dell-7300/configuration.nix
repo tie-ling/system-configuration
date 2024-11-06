@@ -162,11 +162,8 @@
         python3
         sqlite
         # end informatik
-        # https://plaintextaccounting.org/
-        # haskell bookkeeping
-        hledger
-        hledger-ui
-        hledger-web
+        # bookkeeping with emacs
+        ledger
       ];
       extraGroups = [
         # use doas
