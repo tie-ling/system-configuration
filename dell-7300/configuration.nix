@@ -29,7 +29,7 @@
     gnome.gnome-themes-extra
     rofi-wayland
     dunst # notification daemon
-    feh # simple image viewer
+    imv # simple image viewer
     i3status-rust
     wl-clipboard
     xdg-utils
