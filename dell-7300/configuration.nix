@@ -148,6 +148,7 @@
         libreoffice
         kdePackages.okular
         evince
+        zathura
         mupdf
         xfce.mousepad
         brightnessctl
