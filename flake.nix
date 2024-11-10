@@ -1,7 +1,7 @@
 {
   description = "NixOS configuration with flakes";
-  # https://hydra.nixos.org/job/nixos/release-24.05/tested#tabs-status
-  inputs.nixpkgs.url = "nixpkgs/cd3e8833d70618c4eea8df06f95b364b016d4950";
+  # https://github.com/NixOS/nixpkgs/commits/nixos-unstable/?author=K900
+  inputs.nixpkgs.url = "nixpkgs/f8c05a483c77538ab945d0bc40d9995543f1466c";
   # https://github.com/nixos/nixos-hardware
   outputs =
     { self, nixpkgs }@inputs:
