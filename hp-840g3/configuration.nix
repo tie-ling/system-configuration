@@ -157,6 +157,8 @@
         pavucontrol
         networkmanagerapplet
         xarchiver
+        # writting letters
+        texliveConTeXt
         # informatik
         python3
         sqlite
