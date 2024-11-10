@@ -25,6 +25,16 @@
           ./dell-7300/hardware-configuration.nix
         ];
       };
+      nixosConfigurations.hp-840g3 = nixpkgs.lib.nixosSystem {
+        specialArgs = {
+          inherit inputs;
+        };
+        modules = [
+          ./hp-840g3/configuration.nix
+          ./hp-840g3/hardware-configuration.nix
+        ];
+      };
+
       nixosConfigurations.tieling = nixpkgs.lib.nixosSystem {
         specialArgs = {
           inherit inputs;
