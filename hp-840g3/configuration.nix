@@ -146,7 +146,6 @@
         yt-dlp
         chromium
         libreoffice
-        kdePackages.okular
         evince
         zathura
         mupdf
