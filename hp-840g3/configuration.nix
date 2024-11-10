@@ -18,6 +18,9 @@
 
   boot.loader.efi.canTouchEfiVariables = true;
 
+  security.apparmor.enable = true;
+  security.apparmor.killUnconfinedConfinables = true;
+
   # nix.settings.substituters = [ "https://mirror.sjtu.edu.cn/nix-channels/store" ];
   programs.sway.enable = true;
   programs.sway.extraPackages = with pkgs; [
