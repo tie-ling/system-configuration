@@ -25,8 +25,8 @@
     swaylock
     swayidle
     grim
-    gnome.adwaita-icon-theme # mouse cursor and icons
-    gnome.gnome-themes-extra
+    adwaita-icon-theme # mouse cursor and icons
+    gnome-themes-extra
     rofi-wayland
     dunst # notification daemon
     imv # simple image viewer
@@ -139,7 +139,7 @@
       initialHashedPassword = "$y$j9T$S0WLvSG97zHExGCytM8L1/$wKCuLpnhARX5.ErsS9dGKpSLeTuHJ9iD3Kb/O5ZGJe4";
       description = "Yuchen Guo";
       packages = with pkgs; [
-        gnome.nautilus
+        nautilus
         qrencode
         xournalpp
         mpv
@@ -186,7 +186,7 @@
   programs.firefox = {
     enable = true;
   };
-  hardware.opengl.extraPackages = with pkgs; [ intel-media-driver ];
+  hardware.graphics.extraPackages = with pkgs; [ intel-media-driver ];
 
   # Configure network proxy if necessary
   # networking.proxy.default = "http://user:password@proxy:port/";
