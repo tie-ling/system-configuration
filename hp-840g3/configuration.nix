@@ -128,7 +128,8 @@
             pyim-basedict
             company
             ledger-mode
-            ;
+          ;
+          inherit (epkgs.treesit-grammars) with-all-grammars;
         }
       )
     );
@@ -181,7 +182,6 @@
       julia-mono
       font-awesome
       ;
-    inherit (epkgs.treesit-grammars) with-all-grammars;
   };
   xdg.portal = {
     enable = true;
