@@ -122,6 +122,7 @@
         epkgs:
         builtins.attrValues {
           inherit (epkgs)
+            auctex
             nix-mode
             magit
             pyim
