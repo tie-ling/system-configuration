@@ -1,37 +1,46 @@
 {
   description = "NixOS configuration with flakes";
-  # https://github.com/NixOS/nixpkgs/commits/release-24.11
-  inputs.nixpkgs.url = "nixpkgs/f45667df53b4a4bb7b0bc0fa4fb83e8c0c51add5";
-  # https://github.com/nixos/nixos-hardware
+  # https://channels.nixos.org/nixos-24.11/git-revision
+  # https://channels.nixos.org/nixos-unstable/git-revision
+  inputs.nixpkgs.url = "nixpkgs/d70bd19e0a38ad4790d3913bf08fcbfc9eeca507";
+  inputs.disko.url = "github:nix-community/disko/latest";
+  inputs.disko.inputs.nixpkgs.follows = "nixpkgs";
+
   outputs =
-    { self, nixpkgs }@inputs:
+    {
+      self,
+      nixpkgs,
+      disko,
+    }@inputs:
     {
       formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.nixfmt-rfc-style;
-      nixosConfigurations.yinzhou = nixpkgs.lib.nixosSystem {
-        specialArgs = {
-          inherit inputs;
-        };
-        modules = [
-          ./laptop/configuration.nix
-          ./laptop/hardware-configuration.nix
-        ];
-      };
-      nixosConfigurations.dell-7300 = nixpkgs.lib.nixosSystem {
-        specialArgs = {
-          inherit inputs;
-        };
-        modules = [
-          ./dell-7300/configuration.nix
-          ./dell-7300/hardware-configuration.nix
-        ];
-      };
       nixosConfigurations.hp-840g3 = nixpkgs.lib.nixosSystem {
         specialArgs = {
           inherit inputs;
         };
         modules = [
+          disko.nixosModules.disko
           ./hp-840g3/configuration.nix
-          ./hp-840g3/hardware-configuration.nix
+          ./hp-840g3/disko.nix
+        ];
+      };
+
+      nixosConfigurations.vps = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        modules = [
+          # You can get this file from here: https://github.com/nix-community/disko/blob/master/example/gpt-bios-compat.nix
+          ./vps/gpt-bios-compat.nix
+          disko.nixosModules.disko
+          (
+            { config, ... }:
+            {
+              # shut up state version warning
+              system.stateVersion = config.system.nixos.version;
+              # Adjust this to your liking.
+              # WARNING: if you set a too low value the image might be not big enough to contain the nixos installation
+              disko.devices.disk.main.imageSize = "9G";
+            }
+          )
         ];
       };
 
@@ -40,8 +49,9 @@
           inherit inputs;
         };
         modules = [
+          disko.nixosModules.disko
           ./server/configuration.nix
-          ./server/hardware-configuration.nix
+          ./server/disko.nix
         ];
       };
       nixosConfigurations.player = nixpkgs.lib.nixosSystem {
@@ -49,8 +59,9 @@
           inherit inputs;
         };
         modules = [
+          disko.nixosModules.disko
           ./player/configuration.nix
-          ./player/hardware-configuration.nix
+          ./player/disko.nix
         ];
       };
     };

@@ -7,6 +7,7 @@
   lib,
   pkgs,
   inputs,
+  modulesPath,
   ...
 }:
 
@@ -24,10 +25,48 @@
 
   nix.settings.substituters = [ "https://mirror.sjtu.edu.cn/nix-channels/store" ];
 
+  # do not use hardened; interfere with amd sleep and power save
+  imports = [
+    (modulesPath + "/profiles/hardened.nix")
+    (modulesPath + "/installer/scan/not-detected.nix")
+  ];
+
+  boot.initrd.availableKernelModules = [
+    "xhci_pci"
+    "ahci"
+    "nvme"
+    "usbhid"
+    "usb_storage"
+    "sd_mod"
+  ];
+  boot.initrd.kernelModules = [ ];
+  boot.kernelModules = [ "kvm-intel" ];
+  boot.extraModulePackages = [ ];
+
+  # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
+  # (the default) this is the recommended approach. When using systemd-networkd it's
+  # still possible to use this option, but it's recommended to use it in conjunction
+  # with explicit per-interface declarations with `networking.interfaces.<interface>.useDHCP`.
+  networking.useDHCP = lib.mkDefault true;
+  # networking.interfaces.enp1s0.useDHCP = lib.mkDefault true;
+  # networking.interfaces.wlp2s0.useDHCP = lib.mkDefault true;
+
+  nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
+  hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
+
   networking.hostName = "player"; # Define your hostname.
   # Pick only one of the below networking options.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
-  networking.networkmanager.enable = true; # Easiest to use and most distros use this by default.
+  services.dnscrypt-proxy2 = {
+    enable = true;
+    upstreamDefaults = true;
+    settings = {
+      ipv6_servers = true;
+    };
+  };
+  networking.useNetworkd = true;
+  networking.nameservers = [ "127.0.0.1" ];
+
   nix.registry.nixpkgs.flake = inputs.nixpkgs;
 
   # Set your time zone.
@@ -38,7 +77,6 @@
   # use alsa; which supports hdmi passthrough
   hardware.pulseaudio.enable = false;
   services.pipewire.enable = false;
-  sound.enable = true;
 
   services = {
     tlp = {
@@ -133,6 +171,13 @@
   services.getty.autologinUser = "yc";
 
   system.stateVersion = "24.05"; # Did you read the comment?
+
+  swapDevices = [
+    {
+      device = "/swapfile";
+      size = 2048;
+    }
+  ];
 
   services.greetd = {
     enable = true;

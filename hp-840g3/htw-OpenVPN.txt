@@ -1,0 +1,17 @@
+Download OpenVPN Profile:
+https://rz.htw-berlin.de/intern/anleitungen-intern/openvpn-download/
+
+Import OpenVPN Profile:
+nmcli connection import type openvpn file HTW-Profile.ovpn
+
+Edit user name:
+Use nm-connection-editor; change empty user name to "s0596965"
+
+Enter Password plus OTP:
+nmcli connection --ask up openvpn-HTW-mfa-connect-config
+
+Then append OTP to the end of normal password:
+PASSWORD334452
+
+Original Text:
+Sollte Ihr Client keinen zweiten Faktor unterstützen, geben Sie im Passwortfeld Ihre Kennwort und direkt daran den Token ein.
