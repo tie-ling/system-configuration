@@ -14,84 +14,10 @@ Email address: gyuchen86@gmail.com
 You selected this USER-ID:
     "Yuchen Guo <gyuchen86@gmail.com>"
 #+end_src
-* Add ssh key
-Then, use *expert* key edit to add an authenticate-only key
-#+begin_src
-[yc@hp-840g3:~]$ gpg --expert --edit-key gyuchen86@gmail.com 
-gpg> addkey 
-Please select what kind of key you want:
-   (3) DSA (sign only)
-   (4) RSA (sign only)
-   (5) Elgamal (encrypt only)
-   (6) RSA (encrypt only)
-   (7) DSA (set your own capabilities)
-   (8) RSA (set your own capabilities)
-  (10) ECC (sign only)
-  (11) ECC (set your own capabilities)
-  (12) ECC (encrypt only)
-  (13) Existing key
-  (14) Existing key from card
-Your selection? 11
+* Do not use GPG for SSH
+It is not worth the additional complexity.
+You have to fiddle with the gpgagent for the gpg-ssh key to work.
 
-Possible actions for this ECC key: Sign Authenticate 
-Current allowed actions: Sign 
-
-   (S) Toggle the sign capability
-   (A) Toggle the authenticate capability
-   (Q) Finished
-
-Your selection? S
-
-Possible actions for this ECC key: Sign Authenticate 
-Current allowed actions: 
-
-   (S) Toggle the sign capability
-   (A) Toggle the authenticate capability
-   (Q) Finished
-
-Your selection? A
-
-Possible actions for this ECC key: Sign Authenticate 
-Current allowed actions: Authenticate 
-
-   (S) Toggle the sign capability
-   (A) Toggle the authenticate capability
-   (Q) Finished
-
-Your selection? Q
-#+end_src
-Then follow the prompt using default values.
-Finally, enter =q= to quit and save key.
-* Enable SSH support
-#+begin_src 
-echo enable-ssh-support >> $HOME/.gnupg/gpg-agent.conf
-#+end_src
-* Add ssh subkey to gpg sshcontrol list
-#+begin_src 
-[yc@hp-840g3:~]$ gpg --list-keys --with-keygrip
-/home/yc/.gnupg/pubring.kbx
----------------------------
-pub   ed25519 2024-12-31 [SC] [expires: 2027-12-31]
-      C482128EC34E9F8C95BE350B2621EA5C7C514013
-      Keygrip = 575EF53E030D69F0C9A5B48866469481F517C434
-uid           [ultimate] Yuchen Guo <gyuchen86@gmail.com>
-sub   cv25519 2024-12-31 [E] [expires: 2027-12-31]
-      Keygrip = 1D752212B81FD264A9BC57D59DE826D102E0F562
-sub   ed25519 2024-12-31 [A] [expires: 2027-12-31]
-      Keygrip = 81E722BE2DE717083C5705A3BA244A4EDFE8D501 --> this one
-
-[yc@hp-840g3:~]$ echo 81E722BE2DE717083C5705A3BA244A4EDFE8D501 >> ~/.gnupg/sshcontrol
-
-#+end_src
-
-* Export public key
-#+begin_src 
-[yc@hp-840g3:~]$ gpg --export-ssh-key gyuchen86@gmail.com
-ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJd+91hdaYGsOb9AnejwxDJyKxyxn5mGRdhNE/eev5Ps openpgp:0x0ED93033
-#+end_src
-* Check if working
-#+begin_src
-  ssh-add -l
-#+end_src
+Use a simple ssh key with passphrase instead!
 * Remember: Backup GNUPGHOME
 =tar acf gnupg.tar.xz ~/.gnupg=
