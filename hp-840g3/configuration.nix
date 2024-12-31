@@ -243,8 +243,6 @@ in
           }
         );
         inherit (pkgs)
-          # backups
-          rclone
           # blog
           hugo
           captive-browser
