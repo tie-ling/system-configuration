@@ -1,4 +1,8 @@
+#+STARTUP: nofold
+#+STARTUP: hideblocks
 #+title: generate gpg key and add ssh key
+
+* Generate gpg key
 First, generate key normally
 #+begin_src
 [yc@hp-840g3:~]$ gpg --gen-key
@@ -10,6 +14,7 @@ Email address: gyuchen86@gmail.com
 You selected this USER-ID:
     "Yuchen Guo <gyuchen86@gmail.com>"
 #+end_src
+* Add ssh key
 Then, use *expert* key edit to add an authenticate-only key
 #+begin_src
 [yc@hp-840g3:~]$ gpg --expert --edit-key gyuchen86@gmail.com 
@@ -56,5 +61,32 @@ Current allowed actions: Authenticate
 Your selection? Q
 #+end_src
 Then follow the prompt using default values.
-
 Finally, enter =q= to quit and save key.
+* Enable SSH support
+#+begin_src 
+echo enable-ssh-support >> $HOME/.gnupg/gpg-agent.conf
+#+end_src
+* Add ssh subkey to gpg sshcontrol list
+#+begin_src 
+[yc@hp-840g3:~]$ gpg --list-keys --with-keygrip
+/home/yc/.gnupg/pubring.kbx
+---------------------------
+pub   ed25519 2024-12-31 [SC] [expires: 2027-12-31]
+      C482128EC34E9F8C95BE350B2621EA5C7C514013
+      Keygrip = 575EF53E030D69F0C9A5B48866469481F517C434
+uid           [ultimate] Yuchen Guo <gyuchen86@gmail.com>
+sub   cv25519 2024-12-31 [E] [expires: 2027-12-31]
+      Keygrip = 1D752212B81FD264A9BC57D59DE826D102E0F562
+sub   ed25519 2024-12-31 [A] [expires: 2027-12-31]
+      Keygrip = 81E722BE2DE717083C5705A3BA244A4EDFE8D501 --> this one
+
+[yc@hp-840g3:~]$ echo 81E722BE2DE717083C5705A3BA244A4EDFE8D501 >> ~/.gnupg/sshcontrol
+
+#+end_src
+
+* Export public key
+#+begin_src 
+[yc@hp-840g3:~]$ gpg --export-ssh-key gyuchen86@gmail.com
+ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJd+91hdaYGsOb9AnejwxDJyKxyxn5mGRdhNE/eev5Ps openpgp:0x0ED93033
+#+end_src
+* Check if working
