@@ -1,0 +1,60 @@
+#+title: generate gpg key and add ssh key
+First, generate key normally
+#+begin_src
+[yc@hp-840g3:~]$ gpg --gen-key
+
+GnuPG needs to construct a user ID to identify your key.
+
+Real name: Yuchen Guo
+Email address: gyuchen86@gmail.com
+You selected this USER-ID:
+    "Yuchen Guo <gyuchen86@gmail.com>"
+#+end_src
+Then, use *expert* key edit to add an authenticate-only key
+#+begin_src
+[yc@hp-840g3:~]$ gpg --expert --edit-key gyuchen86@gmail.com 
+gpg> addkey 
+Please select what kind of key you want:
+   (3) DSA (sign only)
+   (4) RSA (sign only)
+   (5) Elgamal (encrypt only)
+   (6) RSA (encrypt only)
+   (7) DSA (set your own capabilities)
+   (8) RSA (set your own capabilities)
+  (10) ECC (sign only)
+  (11) ECC (set your own capabilities)
+  (12) ECC (encrypt only)
+  (13) Existing key
+  (14) Existing key from card
+Your selection? 11
+
+Possible actions for this ECC key: Sign Authenticate 
+Current allowed actions: Sign 
+
+   (S) Toggle the sign capability
+   (A) Toggle the authenticate capability
+   (Q) Finished
+
+Your selection? S
+
+Possible actions for this ECC key: Sign Authenticate 
+Current allowed actions: 
+
+   (S) Toggle the sign capability
+   (A) Toggle the authenticate capability
+   (Q) Finished
+
+Your selection? A
+
+Possible actions for this ECC key: Sign Authenticate 
+Current allowed actions: Authenticate 
+
+   (S) Toggle the sign capability
+   (A) Toggle the authenticate capability
+   (Q) Finished
+
+Your selection? Q
+#+end_src
+Then follow the prompt using default values.
+
+Finally, enter =q= to quit and save key.
