@@ -90,3 +90,6 @@ sub   ed25519 2024-12-31 [A] [expires: 2027-12-31]
 ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJd+91hdaYGsOb9AnejwxDJyKxyxn5mGRdhNE/eev5Ps openpgp:0x0ED93033
 #+end_src
 * Check if working
+#+begin_src
+  ssh-add -l
+#+end_src
