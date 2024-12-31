@@ -297,6 +297,7 @@ in
       pinentryPackage = pkgs.pinentry-qt;
     };
   };
+  programs.ssh.startAgent = true;
   # pass-store support for chromium
   programs.browserpass.enable = true;
   services.logrotate.checkConfig = false;
