@@ -174,7 +174,6 @@ in
     };
   };
 
-
   disko.devices = {
     disk = {
       main = {

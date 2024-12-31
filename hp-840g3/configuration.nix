@@ -73,33 +73,33 @@ in
     };
   };
   # disable built-in dns
-  services.resolved.fallbackDns = [];
+  services.resolved.fallbackDns = [ ];
   networking = {
     useNetworkd = true;
     wireless.secretsFile = ../wifi-pass.txt;
-    wireless.enable  = true;
+    wireless.enable = true;
     wireless.userControlled.enable = true;
-    wireless.networks  = {
+    wireless.networks = {
       # secretsFile must use .pskRaw; generate with wpa_passphrase
       # wpa_passphrase SSID PASS command.
       "FRITZ!Box 7520 UK".pskRaw = "ext:psk_home";
-      "BVG Wi-Fi" = {};
+      "BVG Wi-Fi" = { };
       # https://events.ccc.de/congress/2018/wiki/index.php/Static:Network/802.1X_client_settings
       # https://doku.tid.dfn.de/de:eduroam:easyroam#installation_der_easyroam_profile_auf_linux_geraeten
       # man 5 wpa_supplicant.conf
       # do not use double quotes around ext passwords
       eduroam.auth = ''
-               key_mgmt=WPA-EAP
-               pairwise=CCMP
-               group=CCMP
-               eap=TLS
-               identity="7896401122018379966@easyroam-pca.htw-berlin.de"
-               altsubject_match="DNS:easyroam.eduroam.de"
-               ca_cert="/etc/ssl/certs/ca-certificates.crt"
-               client_cert="/home/yc/Documents/eduroam/easyroam_client_cert.pem"
-               private_key="/home/yc/Documents/eduroam/easyroam_client_key.pem"
-               private_key_passwd="qhyzcqys"
-'';
+        key_mgmt=WPA-EAP
+        pairwise=CCMP
+        group=CCMP
+        eap=TLS
+        identity="7896401122018379966@easyroam-pca.htw-berlin.de"
+        altsubject_match="DNS:easyroam.eduroam.de"
+        ca_cert="/etc/ssl/certs/ca-certificates.crt"
+        client_cert="/home/yc/Documents/eduroam/easyroam_client_cert.pem"
+        private_key="/home/yc/Documents/eduroam/easyroam_client_key.pem"
+        private_key_passwd="qhyzcqys"
+      '';
     };
   };
   networking.nameservers = [ "127.0.0.1" ];
@@ -110,8 +110,8 @@ in
         # https://rz.htw-berlin.de/anleitungen/vpn/linux/
         autoStart = false;
         config = ''
-dev tun
-config ${../vpn-htw-berlin.ovpn}'';
+          dev tun
+          config ${../vpn-htw-berlin.ovpn}'';
       };
     };
   };
@@ -263,7 +263,17 @@ config ${../vpn-htw-berlin.ovpn}'';
           notmuch
           isync
           jmtpfs
+          # password
           ;
+        pass = (
+          pkgs.pass-wayland.withExtensions (
+            exts: with exts; [
+              pass-otp
+              pass-import
+              pass-genphrase
+            ]
+          )
+        );
         inherit mytex mypy;
         inherit (pkgs.haskellPackages)
           # haskell
@@ -281,6 +291,16 @@ config ${../vpn-htw-berlin.ovpn}'';
         "wheel"
       ];
       isNormalUser = true;
+    };
+  };
+  programs.gnupg = {
+    agent = {
+      enable = true;
+      enableSSHSupport = true;
+      pinentryPackage = pkgs.pinentry-qt;
+      settings = {
+        default-cache-ttl = 6000;
+      };
     };
   };
   services.logrotate.checkConfig = false;
