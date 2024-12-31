@@ -93,3 +93,5 @@ ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJd+91hdaYGsOb9AnejwxDJyKxyxn5mGRdhNE/eev5Ps
 #+begin_src
   ssh-add -l
 #+end_src
+* Remember: Backup GNUPGHOME
+=tar acf gnupg.tar.xz ~/.gnupg=
