@@ -303,6 +303,8 @@ in
       };
     };
   };
+  # pass-store support for chromium
+  programs.browserpass.enable = true;
   services.logrotate.checkConfig = false;
   fonts.packages = builtins.attrValues {
     inherit (pkgs)
