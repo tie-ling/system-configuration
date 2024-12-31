@@ -19,8 +19,9 @@ let
       context-notes-zh-cn
     ]
   );
-  mypy = pkgs.python3.withPackages (python-pkgs: [
-    python-pkgs.notmuch
+  mypy = pkgs.python3.withPackages (python-pkgs: with python-pkgs [
+    notmuch
+    pygit2
   ]);
 
 in
