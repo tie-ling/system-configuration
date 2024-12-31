@@ -298,9 +298,6 @@ in
       enable = true;
       enableSSHSupport = true;
       pinentryPackage = pkgs.pinentry-qt;
-      settings = {
-        default-cache-ttl = 6000;
-      };
     };
   };
   # pass-store support for chromium
