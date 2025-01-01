@@ -19,10 +19,12 @@ let
       context-notes-zh-cn
     ]
   );
-  mypy = pkgs.python3.withPackages (python-pkgs: with python-pkgs; [
-    notmuch
-    pygit2
-  ]);
+  mypy = pkgs.python3.withPackages (
+    python-pkgs: with python-pkgs; [
+      notmuch
+      pygit2
+    ]
+  );
 
 in
 {
@@ -227,6 +229,17 @@ in
     startWithGraphical = true;
   };
   security.chromiumSuidSandbox.enable = true;
+  programs.chromium = {
+    enable = true;
+    extensions = [
+      "ddkjiahejlhfcafbddmgiahcphecmpfh" # ublock origin lite
+      "omkfmpieigblcllmkgbflkikinpkodlk" # enhanced h264ify
+    ];
+    extraOpts = {
+      "PasswordManagerEnabled" = false;
+    };
+  };
+
   # nix path-info -rS /run/current-system | sort -nk2
   users.users = {
     yc = {
@@ -234,7 +247,7 @@ in
       description = "Yuchen Guo";
       packages = builtins.attrValues {
         chromium = (
-          pkgs.chromium.override {
+          pkgs.ungoogled-chromium.override {
             commandLineArgs = [
               "--disable-remote-fonts"
               "--ozone-platform=wayland"
