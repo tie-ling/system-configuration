@@ -237,6 +237,7 @@ in
     extensions = [
       "ddkjiahejlhfcafbddmgiahcphecmpfh" # ublock origin lite
       "omkfmpieigblcllmkgbflkikinpkodlk" # enhanced h264ify
+      "klfoddkbhleoaabpmiigbmpbjfljimgb" # browserpass
     ];
     extraOpts = {
       "PasswordManagerEnabled" = false;
@@ -252,6 +253,10 @@ in
         chromium = (
           pkgs.ungoogled-chromium.override {
             commandLineArgs = [
+              "--disable-webgl"
+              # privacy features
+              # https://github.com/ungoogled-software/ungoogled-chromium/blob/master/docs/flags.md
+              "--enable-features=NoReferrers,ReducedSystemInfo,ClearDataOnExit"
               "--disable-remote-fonts"
               "--ozone-platform=wayland"
               "--enable-features=VaapiVideoDecodeLinuxGL,VaapiVideoEncoder,Vulkan,VulkanFromANGLE,DefaultANGLEVulkan,VaapiIgnoreDriverChecks,VaapiVideoDecoder,PlatformHEVCDecoderSupport,UseMultiPlaneFormatForHardwareVideo"
