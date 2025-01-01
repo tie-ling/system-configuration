@@ -191,12 +191,15 @@ in
   services.upower.enable = true;
   programs.bash.shellInit = ''
     nixosbuildsw () {
-      chown -R root /home/yc/tconf/ && nixos-rebuild switch --flake /home/yc/tconf/ && chown -R  yc /home/yc/tconf
+      chown -R root /home/yc/sys-conf/
+      nixos-rebuild switch --flake /home/yc/sys-conf/
+      chown -R  yc /home/yc/sys-conf
     }
     nixosbuildbo () {
-      chown -R root /home/yc/tconf/ && nixos-rebuild boot --flake /home/yc/tconf/ && chown -R  yc /home/yc/tconf
+      chown -R root /home/yc/sys-conf/
+      nixos-rebuild boot --flake /home/yc/sys-conf/
+      chown -R  yc /home/yc/sys-conf
     }
-
   '';
   services.emacs = {
     enable = true;
