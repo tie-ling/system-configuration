@@ -206,6 +206,6 @@
     settings.Peers =
       #curl -o test.html https://publicpeers.neilalexander.dev/
       # grep -e 'tls://' -e 'tcp://' -e 'quic://' test.html | grep online | sed 's|<td id="address">|"|' | sed 's|</td><td.*|"|g' | sort | wl-copy -n
-      (import ../yggdrasil-peers.nix);
+      (import ../../resources/yggdrasil-peers.nix);
   };
 }

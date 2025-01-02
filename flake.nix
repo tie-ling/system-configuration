@@ -16,12 +16,26 @@
       formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.nixfmt-rfc-style;
       nixosConfigurations.hp-840g3 = nixpkgs.lib.nixosSystem {
         specialArgs = {
+          # used for   nix.registry.nixpkgs.flake = inputs.nixpkgs;
           inherit inputs;
         };
         modules = [
           disko.nixosModules.disko
-          ./hp-840g3/configuration.nix
-          ./hp-840g3/disko.nix
+          ./systems/laptop/configuration.nix
+          ./systems/laptop/disko/hp-840g3.nix
+        ];
+      };
+
+      nixosConfigurations.dell-7370 = nixpkgs.lib.nixosSystem {
+        specialArgs = {
+          # used for   nix.registry.nixpkgs.flake = inputs.nixpkgs;
+          inherit inputs;
+        };
+
+        modules = [
+          disko.nixosModules.disko
+          ./systems/laptop/configuration.nix
+          ./systems/laptop/disko/dell-7370.nix
         ];
       };
 
@@ -29,7 +43,7 @@
         system = "x86_64-linux";
         modules = [
           # You can get this file from here: https://github.com/nix-community/disko/blob/master/example/gpt-bios-compat.nix
-          ./vps/gpt-bios-compat.nix
+          ./systems/vps/gpt-bios-compat.nix
           disko.nixosModules.disko
           (
             { config, ... }:
@@ -46,22 +60,26 @@
 
       nixosConfigurations.tieling = nixpkgs.lib.nixosSystem {
         specialArgs = {
+          # used for   nix.registry.nixpkgs.flake = inputs.nixpkgs;
           inherit inputs;
         };
+
         modules = [
           disko.nixosModules.disko
-          ./server/configuration.nix
-          ./server/disko.nix
+          ./systems/server/configuration.nix
+          ./systems/server/disko.nix
         ];
       };
       nixosConfigurations.player = nixpkgs.lib.nixosSystem {
         specialArgs = {
+          # used for   nix.registry.nixpkgs.flake = inputs.nixpkgs;
           inherit inputs;
         };
+
         modules = [
           disko.nixosModules.disko
-          ./player/configuration.nix
-          ./player/disko.nix
+          ./systems/player/configuration.nix
+          ./systems/player/disko.nix
         ];
       };
     };
