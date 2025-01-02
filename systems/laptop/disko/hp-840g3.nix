@@ -1,5 +1,8 @@
 {
   # see https://github.com/nix-community/disko/tree/master/example
+  # in particular
+  # https://github.com/nix-community/disko/blob/master/example/zfs-with-vdevs.nix
+  # https://github.com/nix-community/disko/blob/master/example/zfs.nix
   disko.devices = {
     disk = {
       main = {
@@ -23,11 +26,19 @@
                 mountOptions = [ "umask=0077" ];
               };
             };
-            luks = {
-              size = "100%";
+            encryptedSwap = {
+              size = "8G";
+              content = {
+                type = "swap";
+                randomEncryption = true;
+              };
+            };
+            luks-root = {
+              # contains swap file
+              size = "64G";
               content = {
                 type = "luks";
-                name = "crypted";
+                name = "crypted-root";
                 settings.allowDiscards = true;
                 passwordFile = "/tmp/secret.key";
                 content = {
@@ -37,6 +48,36 @@
                 };
               };
             };
+            luks-home = {
+              size = "100%";
+              content = {
+                type = "luks";
+                name = "crypted-home";
+                settings.allowDiscards = true;
+                passwordFile = "/tmp/secret.key";
+                content = {
+                  type = "zfs";
+                  pool = "zpool-home";
+                };
+              };
+            };
+          };
+        };
+      };
+    };
+    zpool = {
+      zpool-home = {
+        type = "zpool";
+        # mode = one of "", "mirror", "raidz{1,2,3}"
+        # see definition in https://github.com/nix-community/disko/blob/master/lib/types/zpool.nix
+        mode = "";
+        mountpoint = "/zpool-home";
+        options.compatibility = "legacy";
+        datasets = {
+          home = {
+            type = "zfs_fs";
+            mountpoint = "/home";
+            options."com.sun:auto-snapshot" = "true";
           };
         };
       };
