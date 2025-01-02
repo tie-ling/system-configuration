@@ -97,14 +97,14 @@ in
   programs.bash.shellInit = ''
     nixosbuildsw () {
       local name=$1 
-      chown -R root /home/yc/sys-conf/
-      nixos-rebuild switch --flake /home/yc/sys-conf/$name
+      chown -R root /home/yc/sys-conf
+      nixos-rebuild switch --flake /home/yc/sys-conf#$name
       chown -R  yc /home/yc/sys-conf
     }
     nixosbuildbo () {
       local name=$1
-      chown -R root /home/yc/sys-conf/
-      nixos-rebuild boot --flake /home/yc/sys-conf/$name
+      chown -R root /home/yc/sys-conf
+      nixos-rebuild boot --flake /home/yc/sys-conf#$name
       chown -R  yc /home/yc/sys-conf
     }
   '';
