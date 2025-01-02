@@ -81,6 +81,10 @@ in
     useNetworkd = true;
     wireless.secretsFile = ../wifi-pass.txt;
     wireless.enable = true;
+
+    # To connect to ad-hoc networks, enable userControlled option.
+    # Run $(BROWSER=w3m nixos-help) to read how to connect to wifi
+    # using wpa_cli; search for phrase 'Networking in the installer'
     wireless.userControlled.enable = true;
     wireless.networks = {
       # secretsFile must use .pskRaw; generate with wpa_passphrase
