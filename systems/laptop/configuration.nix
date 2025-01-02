@@ -262,6 +262,15 @@ in
     };
   };
   services = {
+    openssh = {
+      # used to transfer files between my laptops
+      enable = true;
+      settings = {
+        PasswordAuthentication = false;
+      };
+      allowSFTP = true;
+      openFirewall = true;
+    };
     tlp = {
       enable = true;
       settings = {
@@ -322,6 +331,9 @@ in
   users.users = {
     yc = {
       initialHashedPassword = "$y$j9T$S0WLvSG97zHExGCytM8L1/$wKCuLpnhARX5.ErsS9dGKpSLeTuHJ9iD3Kb/O5ZGJe4";
+      openssh.authorizedKeys.keys = [
+        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAwcU205j7zIq6IfbJ14G3FcKaIs979qC8NPyxVFhd71 yc@dell-7300"
+      ];
       description = "Yuchen Guo";
       packages = builtins.attrValues {
         inherit (pkgs)
