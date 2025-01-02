@@ -23,6 +23,9 @@ blkdiscard -f $DISK
 
 nix --experimental-features "nix-command flakes" run github:nix-community/disko/latest -- --mode destroy,format,mount $PATH_TO_DISKO_IN_REPO
 
-nixos-install --root /mnt --no-root-passwd --flake github:tie-ling/tconf#hp-840g3
+mkswap /dev/disk/by-partlabel/disk-main-encryptedSwap
+swapon /dev/disk/by-partlabel/disk-main-encryptedSwap
+
+nixos-install --root /mnt --no-root-passwd --flake $PATH_TO_REPO#MACHINE
 
 poweroff
