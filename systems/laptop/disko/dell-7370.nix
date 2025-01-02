@@ -26,6 +26,13 @@
                 mountOptions = [ "umask=0077" ];
               };
             };
+            encryptedSwap = {
+              size = "8G";
+              content = {
+                type = "swap";
+                randomEncryption = true;
+              };
+            };
             luks-root = {
               # contains swap file
               size = "64G";

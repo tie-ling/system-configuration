@@ -60,12 +60,6 @@ in
   boot.loader.systemd-boot.memtest86.enable = true;
   boot.initrd.systemd.enable = true;
   zramSwap.enable = true;
-  swapDevices = [
-    {
-      device = "/swapfile";
-      size = 2048;
-    }
-  ];
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ "kvm-intel" ];
   boot.extraModulePackages = [ ];
