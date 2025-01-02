@@ -42,3 +42,8 @@ git reset --hard
 # reboot now!
 reboot
 # now everything should be working
+
+# restore gpg keys to ~/.gnupg
+tar axf $HOME/.password-store/gpg/gnupg-20241231.tar.xz -C $HOME
+
+# setup chrome: install browserpass, ublock, enhanced h264ify; disable js
