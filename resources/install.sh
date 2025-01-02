@@ -21,6 +21,8 @@ DISK=
 # discard the entire block device
 blkdiscard -f $DISK
 
+git clone https://github.com/tie-ling/system-configuration
+
 nix --experimental-features "nix-command flakes" run github:nix-community/disko/latest -- --mode destroy,format,mount $PATH_TO_DISKO_IN_REPO
 
 mkswap /dev/disk/by-partlabel/disk-main-encryptedSwap
