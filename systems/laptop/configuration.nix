@@ -349,6 +349,9 @@ in
           qpdf
           pavucontrol
           _7zz
+          # tts and its processing
+          ffmpeg
+          opusTools
           espeak-ng
           # emails
           notmuch
