@@ -171,6 +171,7 @@ in
     dunst # notification daemon
     imv # simple image viewer
     i3status-rust
+    wl-gammarelay-rs
     wl-clipboard
     xdg-utils
     # not directly related to sway; but needed for a sane desktop experience
