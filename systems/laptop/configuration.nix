@@ -349,6 +349,7 @@ in
           qpdf
           pavucontrol
           _7zz
+          espeak-ng
           # emails
           notmuch
           isync
