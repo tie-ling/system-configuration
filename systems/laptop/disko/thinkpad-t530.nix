@@ -1,4 +1,6 @@
 {
+  boot.loader.grub.enable = true;
+  boot.loader.systemd-boot.enable = false;
   disko.devices = {
     disk = {
       main = {
