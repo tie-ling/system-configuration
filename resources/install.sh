@@ -28,12 +28,13 @@ blkdiscard -f $DISK
 
 git clone https://github.com/tie-ling/system-configuration
 
-nix --experimental-features "nix-command flakes" run github:nix-community/disko/latest -- --mode destroy,format,mount $PATH_TO_DISKO_IN_REPO
+nix --experimental-features "nix-command flakes" run github:nix-community/disko/latest -- --mode destroy,format,mount ./system-configuration/systems/laptop/disko/$MACHINE.nix
 
-mkswap /dev/disk/by-partlabel/disk-main-encryptedSwap
-swapon /dev/disk/by-partlabel/disk-main-encryptedSwap
+cryptsetup open --batch-mode --type plain --key-file=/dev/random /dev/disk/by-partlabel/disk-main-encryptedSwap encryptedSwap
+mkswap /dev/mapper/encryptedSwap
+swapon /dev/mapper/encryptedSwap
 
-nixos-install --root /mnt --no-root-passwd --flake $PATH_TO_REPO#MACHINE
+nixos-install --root /mnt --no-root-passwd --flake ./system-configuration#$MACHINE
 
 umount -lr /mnt
 zpool export -a

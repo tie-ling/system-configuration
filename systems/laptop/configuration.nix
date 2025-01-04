@@ -198,7 +198,7 @@ in
   ];
 
   # networking
-  networking.hostId = "4e98920d";   # for zfs pool
+  networking.hostId = "4e98920d"; # for zfs pool
   networking.useDHCP = lib.mkDefault true;
   services.dnscrypt-proxy2 = {
     enable = true;
