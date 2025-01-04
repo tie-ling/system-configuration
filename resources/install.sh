@@ -1,12 +1,12 @@
 # To configure the wifi, first start wpa_supplicant with sudo systemctl start wpa_supplicant, then run wpa_cli. For most home networks, you need to type in the following commands:
 
+# systemctl start wpa_supplicant
+# wpa_cli
 # add_network
 # 0
 # set_network 0 ssid "myhomenetwork"
 # OK
 # set_network 0 psk "mypassword"
-# OK
-# set_network 0 key_mgmt WPA-PSK
 # OK
 # enable_network 0
 # OK
@@ -16,6 +16,11 @@ set -u
 
 # nixos-rebuild --option substituters https://mirror.sjtu.edu.cn/nix-channels/store
 printf "put_my_text_password_here" > /tmp/secret.key
+
+# double check password
+cat /tmp/secret.key
+
+find /dev/disk/by-id/
 DISK=
 
 # discard the entire block device
