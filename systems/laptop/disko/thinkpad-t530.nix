@@ -1,6 +1,11 @@
 {
   boot.loader.grub.enable = true;
   boot.loader.systemd-boot.enable = false;
+  # coreboot has issues with video initialization;
+  # thus load i915 in initrd
+  boot.initrd.availableKernelModules = [
+    "i915"
+  ];
   disko.devices = {
     disk = {
       main = {
