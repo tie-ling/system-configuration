@@ -55,7 +55,9 @@ in
 
   # bootloader
   boot.loader.efi.canTouchEfiVariables = false;
-  boot.loader.systemd-boot.enable = true;
+  boot.loader.systemd-boot.enable = lib.mkDefault true;
+  ## used only for old thinkpads
+  boot.loader.grub.enable = lib.mkDefault false;
   boot.loader.systemd-boot.editor = false;
   boot.loader.systemd-boot.memtest86.enable = true;
   boot.initrd.systemd.enable = true;
@@ -195,7 +197,7 @@ in
   programs.browserpass.enable = true;
   hardware.graphics.extraPackages = with pkgs; [
     intel-media-driver
-  ];
+  ] ++ if config.boot.loader.grub.enable then [ pkgs.intel-vaapi-driver ] else [];
 
   # networking
   networking.hostId = "4e98920d"; # for zfs pool

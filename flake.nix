@@ -82,7 +82,7 @@
             ./systems/player/disko.nix
           ];
         };
-      } // (mkLaptop [ "hp-840g3" "dell-7370" "dell-7300" ]);
+      } // (mkLaptop [ "hp-840g3" "dell-7370" "dell-7300" "thinkpad-t530" ]);
 
     };
 }
