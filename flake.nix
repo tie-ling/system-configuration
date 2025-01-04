@@ -27,6 +27,7 @@
                 modules = [
                   disko.nixosModules.disko
                   ./systems/laptop/configuration.nix
+                  ./systems/laptop/disko/configuration.nix
                   ./systems/laptop/disko/${laptopName}.nix
                 ];
               }
