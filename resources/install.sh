@@ -28,7 +28,7 @@ blkdiscard -f $DISK
 
 git clone https://github.com/tie-ling/system-configuration
 
-nix --experimental-features "nix-command flakes" run github:nix-community/disko/latest -- --mode destroy,format,mount ./system-configuration/systems/laptop/disko/$MACHINE.nix
+nix --experimental-features "nix-command flakes" run github:nix-community/disko/latest -- --mode destroy,format,mount --flake  ./system-configuration#$MACHINE.nix
 
 cryptsetup open --batch-mode --type plain --key-file=/dev/random /dev/disk/by-partlabel/disk-main-encryptedSwap encryptedSwap
 mkswap /dev/mapper/encryptedSwap
