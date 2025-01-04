@@ -195,9 +195,12 @@ in
     };
   };
   programs.browserpass.enable = true;
-  hardware.graphics.extraPackages = with pkgs; [
-    intel-media-driver
-  ] ++ (if config.boot.loader.grub.enable then [ pkgs.intel-vaapi-driver ] else []);
+  hardware.graphics.extraPackages =
+    with pkgs;
+    [
+      intel-media-driver
+    ]
+    ++ (if config.boot.loader.grub.enable then [ pkgs.intel-vaapi-driver ] else [ ]);
 
   # networking
   networking.hostId = "4e98920d"; # for zfs pool
@@ -277,7 +280,6 @@ in
     tlp = {
       enable = true;
       settings = {
-        STOP_CHARGE_THRESH_BAT0 = 1;
         # treat everything as battery
         TLP_DEFAULT_MODE = "BAT";
         TLP_PERSISTENT_DEFAULT = 1;

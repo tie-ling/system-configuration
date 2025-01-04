@@ -6,6 +6,17 @@
   boot.initrd.availableKernelModules = [
     "i915"
   ];
+
+  # battery care with tlp
+  # https://linrunner.de/tlp/settings/bc-vendors.html
+  services.tlp = {
+    enable = true;
+    settings = {
+      START_CHARGE_THRESH_BAT0 = 50;
+      STOP_CHARGE_THRESH_BAT0 = 60;
+    };
+  };
+
   disko.devices = {
     disk = {
       main = {

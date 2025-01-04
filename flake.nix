@@ -38,51 +38,58 @@
     in
     {
       formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.nixfmt-rfc-style;
-      nixosConfigurations = {
-        vps = nixpkgs.lib.nixosSystem {
-          system = "x86_64-linux";
-          modules = [
-            # You can get this file from here: https://github.com/nix-community/disko/blob/master/example/gpt-bios-compat.nix
-            ./systems/vps/gpt-bios-compat.nix
-            disko.nixosModules.disko
-            (
-              { config, ... }:
-              {
-                # shut up state version warning
-                system.stateVersion = config.system.nixos.version;
-                # Adjust this to your liking.
-                # WARNING: if you set a too low value the image might be not big enough to contain the nixos installation
-                disko.devices.disk.main.imageSize = "9G";
-              }
-            )
-          ];
-        };
-
-        tieling = nixpkgs.lib.nixosSystem {
-          specialArgs = {
-            # used for   nix.registry.nixpkgs.flake = inputs.nixpkgs;
-            inherit inputs;
+      nixosConfigurations =
+        {
+          vps = nixpkgs.lib.nixosSystem {
+            system = "x86_64-linux";
+            modules = [
+              # You can get this file from here: https://github.com/nix-community/disko/blob/master/example/gpt-bios-compat.nix
+              ./systems/vps/gpt-bios-compat.nix
+              disko.nixosModules.disko
+              (
+                { config, ... }:
+                {
+                  # shut up state version warning
+                  system.stateVersion = config.system.nixos.version;
+                  # Adjust this to your liking.
+                  # WARNING: if you set a too low value the image might be not big enough to contain the nixos installation
+                  disko.devices.disk.main.imageSize = "9G";
+                }
+              )
+            ];
           };
 
-          modules = [
-            disko.nixosModules.disko
-            ./systems/server/configuration.nix
-            ./systems/server/disko.nix
-          ];
-        };
-        player = nixpkgs.lib.nixosSystem {
-          specialArgs = {
-            # used for   nix.registry.nixpkgs.flake = inputs.nixpkgs;
-            inherit inputs;
-          };
+          tieling = nixpkgs.lib.nixosSystem {
+            specialArgs = {
+              # used for   nix.registry.nixpkgs.flake = inputs.nixpkgs;
+              inherit inputs;
+            };
 
-          modules = [
-            disko.nixosModules.disko
-            ./systems/player/configuration.nix
-            ./systems/player/disko.nix
-          ];
-        };
-      } // (mkLaptop [ "hp-840g3" "dell-7370" "dell-7300" "thinkpad-t530" ]);
+            modules = [
+              disko.nixosModules.disko
+              ./systems/server/configuration.nix
+              ./systems/server/disko.nix
+            ];
+          };
+          player = nixpkgs.lib.nixosSystem {
+            specialArgs = {
+              # used for   nix.registry.nixpkgs.flake = inputs.nixpkgs;
+              inherit inputs;
+            };
+
+            modules = [
+              disko.nixosModules.disko
+              ./systems/player/configuration.nix
+              ./systems/player/disko.nix
+            ];
+          };
+        }
+        // (mkLaptop [
+          "hp-840g3"
+          "dell-7370"
+          "dell-7300"
+          "thinkpad-t530"
+        ]);
 
     };
 }
