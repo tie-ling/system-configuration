@@ -177,6 +177,7 @@ in
     wl-gammarelay-rs
     wl-clipboard
     xdg-utils
+    brightnessctl
     # not directly related to sway; but needed for a sane desktop experience
     w3m
     mc
