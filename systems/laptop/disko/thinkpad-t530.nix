@@ -1,3 +1,4 @@
+(import ./configuration.nix) //
 {
   disko.devices = {
     disk = {
