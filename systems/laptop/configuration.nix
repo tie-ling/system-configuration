@@ -86,6 +86,7 @@ in
   security.chromiumSuidSandbox.enable = true;
   services.logrotate.checkConfig = false;
   hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
+  hardware.bluetooth.enable = true;
 
   # nix related
   # nix.settings.substituters = [ "https://mirror.sjtu.edu.cn/nix-channels/store" ];
