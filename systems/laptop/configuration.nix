@@ -74,6 +74,9 @@ in
     "sdhci_pci"
   ];
   system.stateVersion = "24.05"; # Did you read the comment?
+  # for non-efi laptops
+  boot.loader.grub.enable = true;
+
 
   # security; remember to enable hardened mode
   security.lockKernelModules = false;
