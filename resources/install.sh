@@ -46,12 +46,12 @@ git clone https://github.com/tie-ling/user-home-config
 mv user-home-config/.git ~/
 git reset --hard
 
+# restore gpg keys to ~/.gnupg
+tar axf $HOME/.password-store/gpg/gnupg-20241231.tar.xz -C $HOME
+
 # do not run sway, as at this time user services are failing
 # reboot now!
 reboot
 # now everything should be working
-
-# restore gpg keys to ~/.gnupg
-tar axf $HOME/.password-store/gpg/gnupg-20241231.tar.xz -C $HOME
 
 # setup chrome: install browserpass, ublock, enhanced h264ify; disable js
