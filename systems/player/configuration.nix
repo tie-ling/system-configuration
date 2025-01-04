@@ -72,8 +72,8 @@
   # Set your time zone.
   time.timeZone = "Asia/Shanghai";
 
-  hardware.opengl.enable = true;
-  hardware.opengl.extraPackages = with pkgs; [ intel-media-driver ];
+  hardware.graphics.enable = true;
+  hardware.graphics.extraPackages = with pkgs; [ intel-media-driver ];
   # use alsa; which supports hdmi passthrough
   hardware.pulseaudio.enable = false;
   services.pipewire.enable = false;

@@ -148,15 +148,13 @@
       # \\192.168.1.192\bt，勾选“使用其他凭据”，输入用户名our和密码。
       # 必须直接输入ip地址来建立连接，基于安全原因，自动探索模式和访客
       # 已被禁用。
-      enableNmbd = false;
-      enableWinbindd = false;
+      nmbd.enable = false;
+      winbindd.enable = false;
       settings = {
         global = {
           "map to guest" = "Never";
           "server min protocol" = "SMB3";
         };
-      };
-      shares = {
         # our = {
         #   path = "/home/our";
         #   "read only" = false;
