@@ -197,7 +197,7 @@ in
   programs.browserpass.enable = true;
   hardware.graphics.extraPackages = with pkgs; [
     intel-media-driver
-  ] ++ if config.boot.loader.grub.enable then [ pkgs.intel-vaapi-driver ] else [];
+  ] ++ (if config.boot.loader.grub.enable then [ pkgs.intel-vaapi-driver ] else []);
 
   # networking
   networking.hostId = "4e98920d"; # for zfs pool
