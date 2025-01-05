@@ -79,7 +79,7 @@ in
   # zfs mounts are configured in fstab via disko
   # zfs-mount.service will fail in a race with fstab mount; thus
   # disable it.
-  systemd.services.zfs-mount.enable = false
+  systemd.services.zfs-mount.enable = false;
 
   # security; remember to enable hardened mode
   security.lockKernelModules = false;
