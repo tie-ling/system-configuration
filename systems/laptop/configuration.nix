@@ -76,6 +76,10 @@ in
     "sdhci_pci"
   ];
   system.stateVersion = "24.05"; # Did you read the comment?
+  # zfs mounts are configured in fstab via disko
+  # zfs-mount.service will fail in a race with fstab mount; thus
+  # disable it.
+  systemd.services.zfs-mount.enable = false
 
   # security; remember to enable hardened mode
   security.lockKernelModules = false;
