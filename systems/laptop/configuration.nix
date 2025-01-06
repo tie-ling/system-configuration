@@ -342,6 +342,89 @@ in
     defaultEditor = true;
     install = true;
   };
+  # vanilla unmodified browser for ebay
+  programs.firefox = {
+    enable = true;
+    package = pkgs.firefox-esr;
+    policies = {
+      DisableBuiltinPDFViewer = true;
+      DisableFirefoxAccounts = true;
+      DisableFirefoxStudies = true;
+      DisablePocket = true;
+      DisableTelemetry = true;
+      DisplayMenuBar = "never";
+      DNSOverHTTPS = {
+        Enabled = false;
+      };
+      DontCheckDefaultBrowser = true;
+      EncryptedMediaExtensions = {
+        Enabled = false;
+      };
+      ExtensionUpdate = false;
+      FirefoxHome = {
+        Search = false;
+        TopSites = false;
+        Highlights = false;
+        Snippets = false;
+        SponsoredTopSites = false;
+        Pocket = false;
+        SponsoredPocket = false;
+      };
+      FirefoxSuggest = {
+        SponsoredSuggestions = false;
+      };
+      HardwareAcceleration = true;
+      Homepage = {
+        StartPage = "none";
+      };
+      NetworkPrediction = false;
+      NewTabPage = false;
+      NoDefaultBookmarks = true;
+      OverrideFirstRunPage = "";
+      OverridePostUpdatePage = "";
+      PDFjs = {
+        Enabled = false;
+      };
+      Permissions = {
+        Location = {
+          BlockNewRequests = true;
+        };
+        Notifications = {
+          BlockNewRequests = true;
+        };
+      };
+      PictureInPicture = {
+        Enabled = false;
+      };
+      PopupBlocking = {
+        Default = false;
+      };
+      PromptForDownloadLocation = true;
+      SearchSuggestEnabled = false;
+      ShowHomeButton = true;
+      UserMessaging = {
+        WhatsNew = false;
+        ExtensionRecommendations = false;
+        FeatureRecommendations = false;
+        MoreFromMozilla = false;
+        SkipOnboarding = true;
+      };
+    };
+    preferences = {
+      "browser.aboutConfig.showWarning" = false;
+      "browser.backspace_action" = 0;
+      "browser.chrome.site_icons" = false;
+      "browser.display.use_document_fonts" = 0;
+      "browser.tabs.firefox-view" = false;
+      "browser.tabs.inTitlebar" = 0;
+      "browser.uidensity" = 1;
+      "general.smoothScroll" = false;
+      "media.ffmpeg.vaapi.enabled" = true;
+      "media.navigator.mediadatadecoder_vpx_enabled" = true;
+      "network.IDN_show_punycode" = true;
+      "dom.security.https_only_mode" = true;
+    };
+  };
 
   # users
   # nix path-info -rS /run/current-system | sort -nk2
