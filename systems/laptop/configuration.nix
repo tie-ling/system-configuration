@@ -27,10 +27,7 @@ let
   );
   mychromium = pkgs.ungoogled-chromium.override {
     commandLineArgs = [
-      "--disable-webgl"
-      # privacy features
-      # https://github.com/ungoogled-software/ungoogled-chromium/blob/master/docs/flags.md
-      "--enable-features=NoReferrers,ReducedSystemInfo,ClearDataOnExit"
+      # for ebay: do not enable privacy features; use w3m if need privacy
       "--disable-remote-fonts"
       "--ozone-platform=wayland"
       "--enable-features=VaapiVideoDecodeLinuxGL,VaapiVideoEncoder,Vulkan,VulkanFromANGLE,DefaultANGLEVulkan,VaapiIgnoreDriverChecks,VaapiVideoDecoder,PlatformHEVCDecoderSupport,UseMultiPlaneFormatForHardwareVideo"
