@@ -168,6 +168,8 @@ in
     # use this if they aren't displayed properly:
     export _JAVA_AWT_WM_NONREPARENTING=1
 
+    # enable wayland support in all chromium and electron apps
+    export NIXOS_OZONE_WL="1"
     export ELECTRON_OZONE_PLATFORM_HINT=wayland
     export QT_QPA_PLATFORM=wayland
   '';
