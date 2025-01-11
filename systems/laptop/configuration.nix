@@ -12,11 +12,24 @@
 }:
 
 let
-  mytex = pkgs.texliveConTeXt.withPackages (
+  mytex = pkgs.texliveBasic.withPackages (
     ps: with ps; [
       fandol
       context-simpleslides
       context-notes-zh-cn
+      collection-luatex
+      collection-latex
+      collection-latexextra
+      collection-latexrecommended
+      collection-fontsrecommended
+      collection-mathscience
+      collection-langgerman
+      collection-langenglish
+      collection-langchinese
+      collection-langcjk
+      ctex
+      ctex-faq
+      pdfpages
     ]
   );
   mypy = pkgs.python3.withPackages (
@@ -373,6 +386,8 @@ in
           notmuch
           isync
           jmtpfs
+        # microsoft onedrive
+          rclone
           ;
         inherit
           mytex
