@@ -176,6 +176,20 @@ in
   };
 
   # desktop programs
+  programs.tmux = {
+    enable = true;
+    keyMode = "emacs";
+    newSession = true;
+    terminal = "tmux-direct";
+    extraConfig = ''
+      unbind C-b
+      unbind f7
+      set -u prefix
+      set -g prefix f7
+      bind -N "Send the prefix key" f7 send-prefix
+    '';
+  };
+  programs.foot.enable = true;
   programs.sway.enable = true;
   programs.sway.extraSessionCommands = ''
     export QT_WAYLAND_DISABLE_WINDOWDECORATION="1"
@@ -189,7 +203,6 @@ in
     export QT_QPA_PLATFORM=wayland
   '';
   programs.sway.extraPackages = with pkgs; [
-    foot
     swaylock
     swayidle
     grim
