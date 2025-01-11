@@ -29,6 +29,9 @@ let
       collection-langcjk
       ctex
       ctex-faq
+      # concatenate pdfs with tex
+      pdfpages
+      pdfjam
     ]
   );
   mypy = pkgs.python3.withPackages (
