@@ -29,7 +29,6 @@ let
       collection-langcjk
       ctex
       ctex-faq
-      pdfpages
     ]
   );
   mypy = pkgs.python3.withPackages (
