@@ -17,6 +17,7 @@ let
       fandol
       context-simpleslides
       context-notes-zh-cn
+      context-letter
       collection-luatex
       collection-latex
       collection-latexextra
