@@ -347,6 +347,8 @@ in
         epkgs:
         builtins.attrValues {
           inherit (epkgs)
+            # context; latex
+            auctex
             # git porcelain
             magit
             # pinyin
