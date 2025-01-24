@@ -406,6 +406,8 @@ in
           jmtpfs
         # microsoft onedrive
           rclone
+        # meal planning
+          gnumeric
           ;
         inherit
           mytex
