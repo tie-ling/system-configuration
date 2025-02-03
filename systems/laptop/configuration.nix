@@ -404,6 +404,8 @@ in
           notmuch
           isync
           jmtpfs
+          # deal with word documents
+          abiword
         # microsoft onedrive
           rclone
         # meal planning
